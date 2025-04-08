@@ -51,6 +51,6 @@ class Address(BaseModel):
     reference_point = models.CharField(max_length=255, verbose_name="ponto_referencia")
 
     class Meta:
-        order = ['-created_at']
+        ordering = ['-created_at']
         verbose_name = 'Endereco'
         verbose_name = 'Enderecos'
