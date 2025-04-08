@@ -41,16 +41,26 @@ class Address(BaseModel):
     cep = models.CharField(max_length=8)
     street = models.CharField(max_length=255, verbose_name="nome_da_rua")
     number = models.PositiveSmallIntegerField(verbose_name="numero_casa")
-    city = models.CharField(max_length=255)
+    city = models.CharField(max_length=255, verbose_name="cidade")
     uf = models.CharField(
         max_length=2,
         choices=UF_Choices.choices,
         default=UF_Choices.PB
     )
-    address_2 = models.CharField(max_length=255, verbose_name="complemento")
-    reference_point = models.CharField(max_length=255, verbose_name="ponto_referencia")
+    address_2 = models.CharField(
+        max_length=255, 
+        verbose_name="complemento",
+        blank=True,
+        null=True
+    )
+    reference_point = models.CharField(
+        max_length=255, 
+        verbose_name="ponto_referencia",
+        blank=True,
+        null=True
+    )
 
     class Meta:
         ordering = ['-created_at']
         verbose_name = 'Endereco'
-        verbose_name = 'Enderecos'
+        verbose_name_plural = 'Enderecos'
