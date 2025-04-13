@@ -492,6 +492,50 @@ body {
     background-color: var(--li-app-locker-unavailable-air-bg-color);
 }
 
+/*-----------------------------*/
+/*  Register Card
+/*-----------------------------*/
+.register-card {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    text-align: center;
+    border-radius: var(--li-app-border-radius);
+    background-color: var(--li-app-locker-card-secondary-bg-color);
+}
+
+.register-card h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.register-card .circle {
+    --li-app-circle-size:9rem;
+    width: var(--li-app-circle-size);
+    height: var(--li-app-circle-size);
+    border-radius: 50%;
+    color: var(--li-app-locker-card-color);
+    background-color: var(--li-app-locker-card-primary-bg-color);
+    border: var(--li-app-border-size) solid var(--li-app-locker-card-border-color);
+}
+
+.register-card .big-icon {  
+    --li-app-big-icon-size:4rem;
+    font-size: var(--li-app-big-icon-size);
+    height: var(--li-app-big-icon-size);
+}
+
+/*Register Card Accepted*/
+.register-card.accepted {
+    background-color: var(--li-app-locker-accepted-card-secondary-bg-color);
+}
+
+.register-card.accepted .circle {
+    color: var(--li-app-locker-accepted-card-color);
+    background-color: var(--li-app-locker-accepted-card-primary-bg-color);
+    border: var(--li-app-border-size) solid var(--li-app-locker-accepted-card-border-color);
+}
+
 .form-check-input:checked {
     background-color: #28a745; /* verde Bootstrap */
     border-color: #28a745;
@@ -501,6 +545,7 @@ body {
 .form-check-input:checked::before {
     background-color: white;
 }
+
 
 
 /*-----------------------------*/
