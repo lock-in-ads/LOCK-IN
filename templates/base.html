@@ -1,17 +1,18 @@
+{% load static %}
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="pt-br" data-bs-theme="auto">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="André Antônio">
-    <title>LockIn - Administração</title>
+    <meta name="description" content="Sistema criado como trabalho de Extensão do P3-A da faculdade UNIFIP, para gerenciamento de Armários com trancas eletrônicas. Interligando uma interface web com modulos Arduino.">
+    <meta name="author" content="André Antônio, Thiago Araujo, Paulo Cleidson, Anderson Silva, Rogério Nunes">
+    <title>{% block title %}LockIn{% endblock %}</title>    
 
     <!-- Bootstrap 5.3.3 -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles -->
-    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 
     <!-- Font Icons -->   
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -33,8 +34,8 @@
 
     <!--begin::Logo-->
     <div class="navbar-logo col-md-3 col-lg-2">
-      <img class="logo theme-light-show" src="assets/images/lockin-logo-dark.png" alt="Logo Lock In">
-      <img class="logo theme-dark-show" src="assets/images/lockin-logo-light-2.png" alt="Logo Lock In">
+      <img class="logo theme-light-show" src="{% static 'images/lockin-logo-dark.png' %}" alt="Logo Lock In">
+      <img class="logo theme-dark-show" src="{% static 'images/lockin-logo-light-2.png' %}" alt="Logo Lock In">
     </div>
     <!--end::Logo-->
 
@@ -82,7 +83,7 @@
       <!--begin::User-->
       <div class="app-navbar-item ms-2 me-2 ms-lg-6 me-lg-6">       
         <div class="cursor-pointer symbol symbol-35px symbol-lg-45px">
-            <img src="assets/images/andre.jfif" alt="user">
+            <img src="{% static 'images/andre.jfif' %}" alt="user">
         </div>
       </div>
       <!--end::User-->        
@@ -105,7 +106,7 @@
             </h6>
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
+                <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/' %}active{% endif %}" aria-current="page" href="/">
                   <i class="bi bi-house-lock-fill"></i>
                   Atribuição Rápida
                 </a>
@@ -129,7 +130,7 @@
             </h6>
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="#">
+                <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/register-card/' %}active{% endif %}" href="/register-card">
                   <i class="bi bi-credit-card-2-back"></i>
                   Cadastrar Cartão
                 </a>
@@ -168,221 +169,10 @@
         </div>
       </div>
     </div>
-
-    <!--begin::Register Card-->
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-3 mb-3 mt-lg-5 mb-lg-5">
-      <div class="card p-3 p-lg-5">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
-          <h1 class="h2">Cadastrar Cartão</h1>
-        </div>
-        <div class="p-3 p-lg-5 register-card">
-          <div class="circle">
-            <i class="bi bi-wifi big-icon"></i>
-            <h2>Aproxime o Cartão</h2>
-          </div>          
-        </div>
-      </div>
-    </main> 
-    <!--end::Register Card-->
-
-    <!--begin::Register Card-->
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-3 mb-3 mt-lg-5 mb-lg-5">
-      <div class="card p-3 p-lg-5">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
-          <h1 class="h2">Cadastrar Cartão</h1>
-        </div>
-        <div class="row d-flex justify-content-center mb-2 mb-lg-5">
-          <div class="p-3 p-lg-5 register-card accepted">
-            <div class="circle">
-              <i class="bi bi-wifi big-icon"></i>
-              <h2>Cartão Lido</h2>
-            </div>          
-          </div>
-        </div>
-        <div class="row d-flex justify-content-center">
-          <a class="btn custom"><i class="bi bi-floppy me-2"></i>Salvar Cartão</a>
-        </div>
-      </div>
-    </main> 
-    <!--end::Register Card-->
-
-    <!--begin::Quick Assignment-->
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-3 mb-3 mt-lg-5 mb-lg-5">
-      <div class="card p-3 p-lg-5">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
-          <h1 class="h2">Atribuição Rápida</h1>
-        </div>
-        <div class="quick-assignment" id="quick-assignment">        
-          <a class="locker">
-            <div class="wrapper">
-              <div class="lock">
-                <ul><li></li></ul>         
-              </div>
-              <ul class="air">
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <h2>01</h2>
-          </a>
-        </div>
-      </div>
-    </main> 
-    <!--end::Quick Assignment-->
-
-    <!--begin::Dashboard-->
-    <!--
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class=" card mt-2 mt-lg-5 p-5">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-            <i class="bi bi-calendar-week"></i>
-            This week
-          </button>
-        </div>
-      </div>
-
-      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-
-      <h2>Section title</h2>
-      <div class="table-responsive small">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,004</td>
-              <td>text</td>
-              <td>random</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,005</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>placeholder</td>
-            </tr>
-            <tr>
-              <td>1,006</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,007</td>
-              <td>placeholder</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>irrelevant</td>
-            </tr>
-            <tr>
-              <td>1,008</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,009</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,010</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,011</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,012</td>
-              <td>text</td>
-              <td>placeholder</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,013</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>visual</td>
-            </tr>
-            <tr>
-              <td>1,014</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,015</td>
-              <td>random</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>text</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    </main>
-    -->
-    <!--end::Dashboard-->
+    
+    {% block content %}
+    <!-- Main Content -->
+    {% endblock %}
   </div>
 </div>
 
@@ -392,11 +182,11 @@
   </div>   
 </footer>
 
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/color-modes.js"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/color-modes.js' %}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous">
-    </script><script src="assets/js/custom.js"></script>
-    </script><script src="assets/js/dashboard.js"></script>
+    </script><script src="{% static 'js/custom.js' %}"></script>
+    </script><script src="{% static 'js/dashboard.js' %}"></script>
   </body>
 </html>
