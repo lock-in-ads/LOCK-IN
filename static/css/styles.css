@@ -536,6 +536,18 @@ body {
     border: var(--li-app-border-size) solid var(--li-app-locker-accepted-card-border-color);
 }
 
+.form-check-input:checked {
+    background-color: #28a745; /* verde Bootstrap */
+    border-color: #28a745;
+  }
+
+/* Cor do botão do switch (a bolinha) */
+.form-check-input:checked::before {
+    background-color: white;
+}
+
+
+
 /*-----------------------------*/
 /*  Footer
 /*-----------------------------*/
