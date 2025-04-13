@@ -9,10 +9,12 @@
     <title>{% block title %}LockIn{% endblock %}</title>    
 
     <!-- Bootstrap 5.3.3 -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/base/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles -->
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/base/styles.css' %}" rel="stylesheet">
+    <!-- Custom styles for child templates only -->
+    {% block extra_css %}{% endblock %}
 
     <!-- Font Icons -->   
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -182,11 +184,11 @@
   </div>   
 </footer>
 
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/color-modes.js' %}"></script>
+    <script src="{% static 'js/base/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/base/color-modes.js' %}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous">
-    </script><script src="{% static 'js/custom.js' %}"></script>
-    </script><script src="{% static 'js/dashboard.js' %}"></script>
+    </script><script src="{% static 'js/base/custom.js' %}"></script>
+    </script><script src="{% static 'js/base/dashboard.js' %}"></script>
   </body>
 </html>
