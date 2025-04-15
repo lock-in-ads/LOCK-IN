@@ -9,7 +9,7 @@ class AddressAdmin(admin.ModelAdmin):
     list_filter = ('uf', 'city')
     search_fields = ('street', 'city', 'cep', 'address_2')
     ordering = ('-created_at',)
-    
+
     fieldsets = (
         ('Basic Information', {
             'fields': ('cep', 'street', 'number', 'city', 'uf')

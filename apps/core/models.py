@@ -56,7 +56,7 @@ class Address(BaseModel):
         null=True
     )
     reference_point = models.CharField(
-        max_length=255, 
+        max_length=255,
         verbose_name="ponto_referencia",
         blank=True,
         null=True
