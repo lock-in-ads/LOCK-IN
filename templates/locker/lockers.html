@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}LockIn - Listar Armarios{% endblock %}
+
+{% block content %}
+<!--begin::Locker List-->
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-3 mb-3 mt-lg-5 mb-lg-5">
+  <div class="card p-3 p-lg-5">
+    <div
+      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
+      <h1 class="h2">Listar Armarios</h1>
+    </div>
+
+    <!-- Campo de busca -->
+    <div class="mb-3">
+      <input type="text" id="busca-armario" class="form-control"
+        placeholder="Buscar armário por nome ou localização...">
+    </div>
+
+    <!-- Tabela -->
+    <table class="table table-striped table-hover" id="tabela-armarios">
+      <thead class="table-dark">
+        <tr>
+          <th>Número do Armario</th>
+          <th>Empresa</th>
+          <th>Cartão</th>
+          <th>Disponivel</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for locker in lockers %}
+        <tr>
+          <td>{{ locker.number|stringformat:"02d" }}</td>
+          <td>{{ locker.enterprise_id }}</td>
+          <td>{{ locker.card_id }}</td>      
+          <td>{{ locker.available }}</td>        
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="text-center text-muted">Nenhum usuário cadastrado.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+<!--end::Locker List-->
+{% endblock %}
