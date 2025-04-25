@@ -6,12 +6,12 @@
 <!--begin::Quick Assignment-->
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-3 mb-3 mt-lg-5 mb-lg-5">
     <div class="card p-3 p-lg-5">
-        <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
             <h1 class="h2">Atribuição Rápida</h1>
         </div>
         <div class="quick-assignment" id="quick-assignment">
-            <a class="locker">
+            {% for locker in lockers %}
+            <a class="locker {% if not locker.available %}unavailable{% endif %}" href="locker/assign/{{ locker.id }}">
                 <div class="wrapper">
                     <div class="lock">
                         <ul>
@@ -24,8 +24,12 @@
                         <li></li>
                     </ul>
                 </div>
-                <h2>01</h2>
+                <h2>{{ locker.number|stringformat:"02d" }}</h2>
             </a>
+            {% empty %}            
+            <div class="text-center text-muted">Nenhum Ármario cadastrado.</div>            
+            {% endfor %}
+            
         </div>
     </div>
 </main>

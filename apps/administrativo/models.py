@@ -1,6 +1,6 @@
 from django.db import models
 from apps.core.models import BaseModel, Address
-
+from apps.clientes.models import Client
 
 # Create your models here.
 class Enterprise(BaseModel):
@@ -24,9 +24,12 @@ class Enterprise(BaseModel):
         verbose_name = "Empresa"
         verbose_name_plural = "Empresas"
 
+    def __str__(self):
+        return str(self.legal_name)
+
 
 class Card(BaseModel):
-    enterpise_id = models.ForeignKey(
+    enterprise_id = models.ForeignKey(
         Enterprise,
         on_delete=models.PROTECT,
         related_name="cards",
@@ -39,10 +42,13 @@ class Card(BaseModel):
         ordering = ['-created_at', 'available']
         verbose_name = "Cartão"
         verbose_name_plural = "Cartões"
+    
+    def __str__(self):
+        return str(self.id)
 
 
 class Locker(BaseModel):
-    enterpise_id = models.ForeignKey(
+    enterprise_id = models.ForeignKey(
         Enterprise,
         on_delete=models.PROTECT,
         related_name="lockers",
@@ -54,6 +60,12 @@ class Locker(BaseModel):
         related_name="lockers",
         verbose_name="Cartão"
     )
+    client_id = models.ForeignKey(
+        Client,
+        on_delete=models.PROTECT,
+        related_name="lockers",
+        verbose_name="Cliente"
+    )
     number = models.PositiveSmallIntegerField(verbose_name="Número do Armário")
     available = models.BooleanField(default=True, verbose_name="Disponivel")
 
@@ -61,3 +73,6 @@ class Locker(BaseModel):
         ordering = ['-created_at', 'available']
         verbose_name = "Armário"
         verbose_name_plural = "Armários"
+
+    def __str__(self):
+        return str(self.number)

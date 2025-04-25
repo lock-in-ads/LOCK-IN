@@ -24,10 +24,10 @@ class EnterpriseAdmin(admin.ModelAdmin):
 
 @admin.register(Card)
 class CardAdmin(admin.ModelAdmin):
-    list_display = ('rfid', 'enterpise_id', 'available', 'created_at')
-    list_filter = ('available', 'enterpise_id', 'created_at')
-    search_fields = ('rfid', 'enterpise_id__business_name')
-    raw_id_fields = ('enterpise_id',)
+    list_display = ('rfid', 'enterprise_id', 'available', 'created_at')
+    list_filter = ('available', 'enterprise_id', 'created_at')
+    search_fields = ('rfid', 'enterprise_id__business_name')
+    raw_id_fields = ('enterprise_id',)
     list_editable = ('available',)
 
 
@@ -35,12 +35,12 @@ class CardAdmin(admin.ModelAdmin):
 class LockerAdmin(admin.ModelAdmin):
     list_display = (
         'number',
-        'enterpise_id',
+        'enterprise_id',
         'card_id',
         'available',
         'created_at'
     )
-    list_filter = ('available', 'enterpise_id', 'created_at')
-    search_fields = ('number', 'enterpise_id__business_name', 'card_id__rfid')
-    raw_id_fields = ('enterpise_id', 'card_id')
+    list_filter = ('available', 'enterprise_id', 'created_at')
+    search_fields = ('number', 'enterprise_id__business_name', 'card_id__rfid')
+    raw_id_fields = ('enterprise_id', 'card_id')
     list_editable = ('available',)

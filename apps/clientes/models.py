@@ -23,3 +23,6 @@ class Client(BaseModel):
         ordering = ['-created_at']
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
+
+    def __str__(self):
+        return str(self.name)

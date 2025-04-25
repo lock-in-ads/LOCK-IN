@@ -114,13 +114,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="#">
+                <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/locker/add/' %}active{% endif %}" href="/locker/add/">
                   <i class="bi bi-plus-circle"></i>
                   Cadastrar Armário
                 </a>
               </li>  
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="#">
+                <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/lockers/' %}active{% endif %}" href="/lockers">
                   <i class="bi bi-file-earmark-text"></i>
                   Listar Armários
                 </a>
@@ -132,7 +132,7 @@
             </h6>
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/register-card/' %}active{% endif %}" href="/register-card">
+                <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/card/add/' %}active{% endif %}" href="/card/add/">
                   <i class="bi bi-credit-card-2-back"></i>
                   Cadastrar Cartão
                 </a>
@@ -150,7 +150,13 @@
             </h6>
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/user-list/' %}active{% endif %}" href="/user-list">
+                <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/user/add/' %}active{% endif %}" href="/user/add/">
+                  <i class="bi bi-plus-circle"></i>
+                  Cadastrar Usuário
+                </a>
+              </li>  
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/users/' %}active{% endif %}" href="/users">
                   <i class="bi bi-person-lines-fill"></i>
                   Listar Usuários
                 </a>
@@ -187,8 +193,7 @@
     <script src="{% static 'js/base/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/base/color-modes.js' %}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous">
-    </script><script src="{% static 'js/base/custom.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous">    
     </script><script src="{% static 'js/base/dashboard.js' %}"></script>
   </body>
 </html>
