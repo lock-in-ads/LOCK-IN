@@ -2,8 +2,10 @@ from django import forms
 from apps.administrativo.models import Enterprise, Card, Locker
 from apps.clientes.models import Client
 from apps.core.models import Address
+
 class LockerAddForm(forms.Form):
     available = forms.BooleanField(
+        required=False,
         initial=True,
         label="Disponibilidade pra uso",
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
@@ -11,9 +13,10 @@ class LockerAddForm(forms.Form):
     number = forms.IntegerField(
         label="Número do Armário",
         min_value=0, 
-        widget=forms.NumberInput(attrs={'class': 'form-control'})
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Digite o nº do armário'})
     )
     card = forms.ModelChoiceField(
+        required=False,
         queryset=Card.objects.all(),
         label="Atribuir Cartão Chave",
         widget=forms.Select(attrs={'class': 'form-select'})
@@ -34,7 +37,7 @@ class LockerAssignmentForm(forms.Form):
     number = forms.IntegerField(
         required=False,
         label="Número do Armário",
-        min_value=0, 
+        min_value=1, 
         widget=forms.NumberInput(attrs={'class': 'form-control', 'disabled': 'disabled', 'readonly': 'readonly'})
     )
     card = forms.ModelChoiceField(

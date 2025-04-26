@@ -3,24 +3,15 @@
 {% block title %}LockIn - Cadastrar Usuário{% endblock %}
 
 {% block content %}
-<!--begin::Register User-->
+<!--begin::Add User-->
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-3 mb-3 mt-lg-5 mb-lg-5">
     <div class="card p-3 p-lg-5">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
             <h1 class="h2">Cadastrar Usuário</h1>
         </div>
         <form method="POST">
-            {% csrf_token %}  
-             
-            {% if form.errors %}
-            <div class="alert alert-danger">                
-                {% for field, errors in form.errors.items %}
-                    {% for error in errors %}
-                    <div class="row p-1 px-2">{{ error }}</div>
-                    {% endfor %}
-                {% endfor %}
-            </div>
-            {% endif %}  
+            {% csrf_token %}               
+            {% include "form/alert_errors.html" %}
 
             <div class="border rounded p-3 p-lg-4">             
                 <div class="row mb-3">
@@ -87,5 +78,5 @@
           </form>
     </div>
 </main>
-<!--end::Register User-->
+<!--end::Add User-->
 {% endblock %}

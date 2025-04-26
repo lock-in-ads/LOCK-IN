@@ -58,13 +58,17 @@ class Locker(BaseModel):
         Card,
         on_delete=models.PROTECT,
         related_name="lockers",
-        verbose_name="Cartão"
+        verbose_name="Cartão",
+        null=True, 
+        blank=True        
     )
     client_id = models.ForeignKey(
         Client,
         on_delete=models.PROTECT,
         related_name="lockers",
-        verbose_name="Cliente"
+        verbose_name="Cliente",
+        null=True, 
+        blank=True
     )
     number = models.PositiveSmallIntegerField(verbose_name="Número do Armário")
     available = models.BooleanField(default=True, verbose_name="Disponivel")

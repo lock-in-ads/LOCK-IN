@@ -25,6 +25,7 @@
           <th>Empresa</th>
           <th>Cartão</th>
           <th>Disponivel</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -33,7 +34,15 @@
           <td>{{ locker.number|stringformat:"02d" }}</td>
           <td>{{ locker.enterprise_id }}</td>
           <td>{{ locker.card_id }}</td>      
-          <td>{{ locker.available }}</td>        
+          <td>{{ locker.available }}</td>  
+          <td>
+            <a href="{% url 'editar_usuario' usuario.id %}" class="btn btn-sm btn-primary">
+                Editar
+            </a>
+            <a href="{% url 'excluir_usuario' usuario.id %}" class="btn btn-sm btn-danger">
+                Excluir
+            </a>
+        </td>      
         </tr>
         {% empty %}
         <tr>

@@ -27,7 +27,7 @@ def assign_locker(request, id):
     
     return render(request, 'locker/assign_locker.html', {'form': form})
 
-def list_lockers(request):
+def lockers(request):
     Lockers = Locker.objects.order_by('number')
     return render(request, 'locker/lockers.html', {"lockers": Lockers})
 
@@ -47,12 +47,19 @@ def add_locker(request):
     
     return render(request, 'locker/add_locker.html', {'form': form})
 
+def delete_locker():
+    return render
+
+def cards(request):
+    cards = Card.objects.all()
+    return render(request, 'card/cards.html', {'cards': cards})
+
 def add_card(request):
     return render(request, 'card/add_card.html')
 
 def users(request):
     users = Client.objects.all()
-    return render(request, 'user/users.html')
+    return render(request, 'user/users.html', {'users': users})
 
 def add_user(request):
     if request.method == "POST":
@@ -67,14 +74,16 @@ def add_user(request):
                 address_2 = form.cleaned_data['address_2'],
                 reference_point = form.cleaned_data['reference_point']
             )
-            if client_address:
-                client = Client.objects.create(
-                    name = form.cleaned_data['name'],
-                    phone = form.cleaned_data['phone'],
-                    email = form.cleaned_data['email'],
-                    access_level = form.cleaned_data['access_level']
-                )
-                client.address.add(client_address)
+            
+            client = Client.objects.create(
+                name = form.cleaned_data['name'],
+                phone = form.cleaned_data['phone'],
+                email = form.cleaned_data['email'],
+                access_level = form.cleaned_data['access_level']
+            )
+
+            client.address.add(client_address)
+
             return redirect('users')  
     else:
         form = UserAddForm()
