@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from apps.administrativo.models import Locker, Card
 from apps.clientes.models import Client
-from .forms import LockerAddForm, LockerAssignmentForm
+from apps.core.forms import *
 
 def quick_assignment(request):
     lockers = Locker.objects.order_by('number')
@@ -52,7 +52,31 @@ def add_card(request):
 
 def users(request):
     users = Client.objects.all()
-    return render(request, 'user/users.html', {"users": users})
+    return render(request, 'user/users.html')
 
 def add_user(request):
-    return render(request, 'user/add_user.html')
+    if request.method == "POST":
+        form = UserAddForm(request.POST)
+        if form.is_valid(): 
+            client_address = Address.objects.create(
+                cep = form.cleaned_data['cep'],
+                street = form.cleaned_data['street'],
+                number = form.cleaned_data['number'],
+                city = form.cleaned_data['city'],
+                uf = form.cleaned_data['uf'],
+                address_2 = form.cleaned_data['address_2'],
+                reference_point = form.cleaned_data['reference_point']
+            )
+            if client_address:
+                client = Client.objects.create(
+                    name = form.cleaned_data['name'],
+                    phone = form.cleaned_data['phone'],
+                    email = form.cleaned_data['email'],
+                    access_level = form.cleaned_data['access_level']
+                )
+                client.address.add(client_address)
+            return redirect('users')  
+    else:
+        form = UserAddForm()
+
+    return render(request, 'user/add_user.html', {'form': form})
