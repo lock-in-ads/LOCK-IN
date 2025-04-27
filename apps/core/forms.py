@@ -3,7 +3,7 @@ from apps.administrativo.models import Enterprise, Card, Locker
 from apps.clientes.models import Client
 from apps.core.models import Address
 
-class LockerAddForm(forms.Form):
+class LockerForm(forms.Form):
     available = forms.BooleanField(
         required=False,
         initial=True,
@@ -26,7 +26,6 @@ class LockerAddForm(forms.Form):
         label="Empresa:",
         widget=forms.Select(attrs={'class': 'form-select'})
     )
-
 class LockerAssignmentForm(forms.Form):
     available = forms.BooleanField(
         required=False, 
@@ -52,7 +51,7 @@ class LockerAssignmentForm(forms.Form):
         widget=forms.Select(attrs={'class': 'form-select'})
     )
 
-class UserAddForm(forms.Form):
+class UserForm(forms.Form):
     name = forms.CharField(
         max_length=255,
         label="Nome Completo:",
