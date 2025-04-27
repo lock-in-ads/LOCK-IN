@@ -7,7 +7,7 @@
   <link href="{% static 'css/base/dataTables.custom.css' %}" rel="stylesheet">
 {% endblock %}
 
-{% block title %}LockIn - Listar Armarios{% endblock %}
+{% block title %}LockIn - Armários{% endblock %}
 
 {% block content %}
 <!--begin::Locker List-->
@@ -15,8 +15,9 @@
   <div class="card p-3 p-lg-5">
     <div
       class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
-      <h1 class="h2">Listar Armarios</h1>
+      <h1 class="h2">Armários</h1>
     </div>
+
     {% if messages %}
     {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">
@@ -26,7 +27,7 @@
     {% endif %}  
 
     <div class="table-responsive">
-      <table class="table" id="tabela-armarios">
+      <table class="table" id="lockers">
         <thead>
           <tr>
             <th>Nº</th>
@@ -82,8 +83,8 @@
 <script>
 $(document).ready(function() {
   // Se a tabela não for inicializada ainda, inicialize
-  if (!$.fn.dataTable.isDataTable('#tabela-armarios')) {
-    $('#tabela-armarios').DataTable({
+  if (!$.fn.dataTable.isDataTable('#lockers')) {
+    $('#lockers').DataTable({
       columnDefs: [
             { width: '10%', targets: 0 },  // Primeira coluna (Número do Armário)
             { width: '30%', targets: 1 },  // Segunda coluna (Empresa)
@@ -92,8 +93,8 @@ $(document).ready(function() {
             { width: '10%', targets: 4 },  // Quinta coluna (Disponível)
             { width: '10%', targets: 5 }   // Sexta coluna (Ações)
         ],
-        lengthChange: false,
-        pageLength: 25, 
+        pageLength: 25,
+        lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"] ], 
       "language": {
         "sProcessing": "Processando...",
         "sLengthMenu": "Exibir _MENU_ registros por página",

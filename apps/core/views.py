@@ -25,7 +25,7 @@ def assign_locker(request, id):
             'client': locker.client_id
         }
         form = LockerAssignmentForm(initial=initial_locker_data)
-    return render(request, 'locker/assign_locker.html', {'form': form})
+    return render(request, 'locker/assign_locker.html', {'form': form, 'locker': locker})
 
 def lockers(request):
     Lockers = Locker.objects.order_by('number')
