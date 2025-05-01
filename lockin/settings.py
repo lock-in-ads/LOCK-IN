@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'apps.core',
     'apps.clientes',
-    'apps.administrativo',    
+    'apps.administrativo',
+    'apps.arduino',
 ]
 
 MIDDLEWARE = [

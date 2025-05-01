@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Enterprise, Card, Locker
+from .models import Enterprise, Locker
 
 
 # Register your models here.
@@ -20,15 +20,6 @@ class EnterpriseAdmin(admin.ModelAdmin):
             'fields': ('address',)
         }),
     )
-
-
-@admin.register(Card)
-class CardAdmin(admin.ModelAdmin):
-    list_display = ('rfid', 'enterprise_id', 'available', 'created_at')
-    list_filter = ('available', 'enterprise_id', 'created_at')
-    search_fields = ('rfid', 'enterprise_id__business_name')
-    raw_id_fields = ('enterprise_id',)
-    list_editable = ('available',)
 
 
 @admin.register(Locker)

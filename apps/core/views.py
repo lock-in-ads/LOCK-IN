@@ -3,9 +3,11 @@ from apps.administrativo.models import Locker, Card
 from apps.clientes.models import Client
 from .forms import LockerAddForm, LockerAssignmentForm
 
+
 def quick_assignment(request):
     lockers = Locker.objects.order_by('number')
     return render(request, 'locker/quick_assignment.html', {"lockers": lockers})
+
 
 def assign_locker(request, id):
     locker = get_object_or_404(Locker, id=id) 
@@ -24,7 +26,7 @@ def assign_locker(request, id):
             'client': locker.client_id
         }
         form = LockerAssignmentForm(initial=initial_locker_data)   
-    
+
     return render(request, 'locker/assign_locker.html', {'form': form})
 
 def list_lockers(request):
@@ -44,15 +46,18 @@ def add_locker(request):
             return redirect('lockers')  
     else:
         form = LockerAddForm()
-    
+
     return render(request, 'locker/add_locker.html', {'form': form})
+
 
 def add_card(request):
     return render(request, 'card/add_card.html')
 
+
 def users(request):
     users = Client.objects.all()
     return render(request, 'user/users.html', {"users": users})
+
 
 def add_user(request):
     return render(request, 'user/add_user.html')

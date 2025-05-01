@@ -2,7 +2,7 @@ from django.db import models
 from apps.core.models import BaseModel, Address
 from apps.clientes.models import Client
 
-# Create your models here.
+
 class Enterprise(BaseModel):
     legal_name = models.CharField(max_length=255, verbose_name="Razão Social")
     business_name = models.CharField(
@@ -26,25 +26,6 @@ class Enterprise(BaseModel):
 
     def __str__(self):
         return str(self.legal_name)
-
-
-class Card(BaseModel):
-    enterprise_id = models.ForeignKey(
-        Enterprise,
-        on_delete=models.PROTECT,
-        related_name="cards",
-        verbose_name="ID da empresa"
-    )
-    rfid = models.CharField(max_length=8, verbose_name="RFID")
-    available = models.BooleanField(default=True, verbose_name="Disponivel")
-
-    class Meta:
-        ordering = ['-created_at', 'available']
-        verbose_name = "Cartão"
-        verbose_name_plural = "Cartões"
-    
-    def __str__(self):
-        return str(self.id)
 
 
 class Locker(BaseModel):
