@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}LockIn - {{ title }}{% endblock %}
+
+{% block content %}
+<!--begin::{{ html_title }}-->
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-3 mb-3 mt-lg-5 mb-lg-5">
+    <div class="card p-3 p-lg-5">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
+            <h1 class="h2">{{ title }}</h1>
+        </div>
+        <form method="POST">
+            {% csrf_token %}               
+            {% include "partials/forms/alert_errors.html" %}
+
+            <div class="border rounded p-3 p-lg-5">             
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form.name.label_tag }}
+                        {{ form.name }}                    
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.phone.label_tag }}
+                        {{ form.phone }}                    
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}                    
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form.access_level.label_tag }}
+                        {{ form.access_level }}                    
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-10 mb-3 mb-sm-0">
+                        {{ form.street.label_tag }}
+                        {{ form.street }}                    
+                    </div>
+                    <div class="col-sm-2">
+                        {{ form.number.label_tag }}
+                        {{ form.number }}                    
+                    </div>                    
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        {{ form.address_2.label_tag }}
+                        {{ form.address_2 }}                    
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form.reference_point.label_tag }}
+                        {{ form.reference_point }}                    
+                    </div>                   
+                </div>                
+                <div class="row mb-3 mb-lg-4">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        {{ form.city.label_tag }}
+                        {{ form.city }}                    
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        {{ form.uf.label_tag }}
+                        {{ form.uf }}                    
+                    </div>
+                    <div class="col-md-4">
+                        {{ form.cep.label_tag }}
+                        {{ form.cep }}                    
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                  <a href="{% url 'clients' %}" class="btn cancel px-lg-5 me-3">Cancelar</a>
+                    <button class="btn custom btn-lg px-5" type="submit">
+                      <i class="bi bi-floppy me-2"></i>{{ button_text }}
+                    </button>
+                  </div>
+            </div> 
+            
+          </form>
+    </div>
+</main>
+<!--end::{{ html_title }}-->
+{% endblock %}
