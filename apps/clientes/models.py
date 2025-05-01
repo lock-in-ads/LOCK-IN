@@ -1,8 +1,6 @@
 from django.db import models
 from apps.core.models import BaseModel, Address
 
-
-# Create your models here.
 class Client(BaseModel):
     class LevelChoices(models.IntegerChoices):
         SUPER_USER = 0, 'Super Usuário'

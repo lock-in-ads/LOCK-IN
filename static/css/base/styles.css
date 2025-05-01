@@ -42,8 +42,21 @@
     --li-app-primary-button-color:#fff;
     --li-app-primary-button-bg-color:#1B84FF;
 
+    --li-app-danger-button-color:#fff;
+    --li-app-danger-button-bg-color:#f97280;
+
+    --li-app-cancel-button-color:#1B84FF;
+    --li-app-cancel-button-bg-color:#F9F9F9;
+
     --li-app-secondary-button-color:#fff;
     --li-app-secondary-button-bg-color:#979797;
+
+    /*Alerts*/
+    --li-app-alert-success-color:#17c653;
+    --li-app-alert-success-bg-color:#dcf9df;  
+
+    --li-app-alert-error-color:#f97280;
+    --li-app-alert-error-bg-color:#ffecf3; 
 
     /*Menu*/
     --bs-menu-dropdown-bg-color: #fff; 
@@ -105,8 +118,21 @@
     --li-app-primary-button-color:#A3AED0;
     --li-app-primary-button-bg-color:#3c3f45;
 
+    --li-app-danger-button-color:#fff;
+    --li-app-danger-button-bg-color:#f97280;
+
+    --li-app-cancel-button-color:#A3AED0;
+    --li-app-cancel-button-bg-color:#3c3f45;
+
     --li-app-secondary-button-color:#fff;
     --li-app-secondary-button-bg-color:#1B84FF;
+
+    /*Alerts*/
+    --li-app-alert-success-color:#00A261;
+    --li-app-alert-success-bg-color:#1d1f27; 
+
+    --li-app-alert-error-color:#f97280;
+    --li-app-alert-error-bg-color:#1d1f27;  
 
     /*Menu*/
     --bs-menu-dropdown-bg-color: #1d1f27;
@@ -242,7 +268,9 @@ body {
     background-color: var(--bs-text-green-1);
 }
 
-.btn.custom {
+.btn.custom,
+.btn.cancel, 
+.btn.danger {
     width: auto;
     color: var(--li-app-primary-button-color);
     font-size: 0.9rem;
@@ -261,6 +289,42 @@ body {
   
 .btn.custom:hover {
     color: var(--li-app-secondary-button-color);
+    border-color: var(--li-app-secondary-button-bg-color);
+    background: var(--li-app-secondary-button-bg-color) !important;
+}
+
+.btn.danger {
+    color: var(--li-app-danger-button-color);
+    border-color: var(--li-app-danger-button-bg-color);
+    background-color: var(--li-app-danger-button-bg-color);
+}
+
+.btn.danger i {
+    color: var(--li-app-danger-button-color);
+}
+  
+.btn.danger:hover {
+    color: var(--li-app-secondary-button-color);
+    border-color: var(--li-app-secondary-button-bg-color);
+    background: var(--li-app-secondary-button-bg-color) !important;
+}
+
+.btn.cancel {
+    color: var(--li-app-cancel-button-color);
+    border-color: var(--li-app-cancel-button-bg-color);
+    background-color: var(--li-app-cancel-button-bg-color);
+}
+
+.btn.cancel i {
+    color: var(--li-app-cancel-button-color);
+}
+
+.btn.cancel:hover, 
+.btn.cancel:hover i {
+    color: var(--li-app-secondary-button-color);
+}
+
+.btn.cancel:hover {
     border-color: var(--li-app-secondary-button-bg-color);
     background: var(--li-app-secondary-button-bg-color) !important;
 }
@@ -377,9 +441,19 @@ body {
 }
 
 /*-----------------------------*/
-/*  Main
+/*  alerts
 /*-----------------------------*/
+.alert-success {
+    --bs-alert-color: var(--li-app-alert-success-color);
+    --bs-alert-bg: var(--li-app-alert-success-bg-color);
+    --bs-alert-border-color: var(--li-app-alert-success-color);
+}
 
+.alert-error {
+    --bs-alert-color: var(--li-app-alert-error-color);
+    --bs-alert-bg: var(--li-app-alert-error-bg-color);
+    --bs-alert-border-color: var(--li-app-alert-error-color);
+}
 
 /*-----------------------------*/
 /*  Card

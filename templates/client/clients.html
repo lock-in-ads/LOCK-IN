@@ -7,56 +7,50 @@
   <link href="{% static 'css/base/dataTables.custom.css' %}" rel="stylesheet">
 {% endblock %}
 
-{% block title %}LockIn - Cartões{% endblock %}
+{% block title %}LockIn - Usuários{% endblock %}
 
 {% block content %}
-<!--begin::Card List-->
+<!--begin::Client List-->
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-3 mb-3 mt-lg-5 mb-lg-5">
   <div class="card p-3 p-lg-5">
     <div
       class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
-      <h1 class="h2">Cartões</h1>
+      <h1 class="h2">Usuários</h1>
     </div>
 
     {% include "partials/forms/messages.html" %}
     {% include "partials/confirm_delete_modal.html" %}
-
+    
     <div class="table-responsive">
-      <table class="table" id="cards">
+      <table class="table" id="clients">
         <thead>
           <tr>
             <th>Id</th>
-            <th>Empresa</th>
-            <th>RFID</th>
-            <th>Disponibilidade</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {% for card in cards %}
+          {% for client in clients %}
           <tr>
-            <td>{{ card.id }}</td>
-            <td>{{ card.enterprise_id }}</td> 
-            <td>{{ card.rfid }}</td>      
+            <td>{{ client.id }}</td>
+            <td>{{ client.name }}</td> 
+            <td>{{ client.phone }}</td>      
+            <td>{{ client.email }}</td>  
             <td>
-              {% if card.available %}
-              <div class="badge badge-success">Disponível</div>
-              {% else %} 
-              <div class="badge badge-danger">Ocupado</div>
-              {% endif %}
-            </td>  
-            <td>
-              <a href="{% url 'update_card' card.id %}" class="btn btn-update" alt="Editar">
+              <a href="{% url 'update_client' client.id %}" class="btn btn-update" alt="Editar">
                 <i class="bi bi-pencil"></i>
               </a>
-              <a class="btn btn-sm btn-delete" alt="Excluir" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-name="Cartão {{ card.id }} - RFID: {{ card.rfid }}" data-url="{% url 'delete_card' card.id %}">
+              <a class="btn btn-sm btn-delete" alt="Excluir" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-name="Usuário {{ client.name }}" data-url="{% url 'delete_client' client.id %}">
                 <i class="bi bi-trash"></i>
               </a>
           </td>        
           </tr>
           {% empty %}
           <tr>
-            <td colspan="5" class="text-center text-muted">Nenhum cartão cadastrado.</td>
+            <td colspan="5" class="text-center text-muted">Nenhum usuário cadastrado.</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -64,7 +58,7 @@
     </div>    
   </div>
 </main>
-<!--end::Card List-->
+<!--end::Client List-->
 {% endblock %}
 
 {% block extra_js %}
@@ -73,13 +67,13 @@
 <script>
 $(document).ready(function() {
   // Se a tabela não for inicializada ainda, inicialize
-  if (!$.fn.dataTable.isDataTable('#cards')) {
-    $('#cards').DataTable({
+  if (!$.fn.dataTable.isDataTable('#clients')) {
+    $('#clients').DataTable({
       columnDefs: [
-            { width: '10%', targets: 0 },  // Primeira coluna (Id do cartão)
-            { width: '30%', targets: 1 },  // Segunda coluna (Empresa)
-            { width: '30%', targets: 2 },  // Terceira coluna (RFID)
-            { width: '10%', targets: 3 },  // Quinta coluna (Disponível)
+            { width: '10%', targets: 0 },  // Primeira coluna (Id)
+            { width: '30%', targets: 1 },  // Segunda coluna (Nome)
+            { width: '15%', targets: 2 },  // Terceira coluna (Telefone)
+            { width: '25%', targets: 3 },  // Quinta coluna (E-mail)
             { width: '10%', targets: 4 }   // Sexta coluna (Ações)
         ],
         pageLength: 25,

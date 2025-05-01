@@ -1,0 +1,206 @@
+:root {
+    --li-app-primary-button-color:#fff;
+    --li-app-primary-button-bg-color:#1B84FF;
+
+    --li-app-secondary-button-color:#fff;
+    --li-app-secondary-button-bg-color:#f97280;    
+}
+
+[data-bs-theme=light] {
+    /*Table head*/
+    --li-app-table-head-color:#1B84FF;
+    --li-app-table-head-bg-color:#F9F9F9;
+    --li-app-table-head-bg-hover-color:#F1FAFF;
+
+    /*Badges*/
+    --li-app-badge-success-color:#17C653;
+    --li-app-badge-success-bg-color:#dcf9df;
+
+    --li-app-badge-danger-color:#f97280;
+    --li-app-badge-danger-bg-color:#ffecf3;
+
+    /*Buttons*/
+    --li-app-update-button-color:#1B84FF;
+    --li-app-update-button-bg-color:#F9F9F9;
+
+    --li-app-delete-button-color:#f97280;
+    --li-app-delete-button-bg-color:#F9F9F9;
+
+    --li-app-pagelink-disabled-button-color:#dee2e6;
+    --li-app-pagelink-disabled-button-bg-color:#F9F9F9;
+}
+
+[data-bs-theme=dark] {
+    /*Table head*/
+    --li-app-table-head-color:#A3AED0;
+    --li-app-table-head-bg-color:#3c3f45;
+    --li-app-table-head-bg-hover-color:#3c3f45;
+
+    /*Badges*/
+    --li-app-badge-success-color:#00A261;
+    --li-app-badge-success-bg-color:#1F212A;
+
+    --li-app-badge-danger-color:#f97280;
+    --li-app-badge-danger-bg-color:#1F212A;
+    
+     /*Buttons*/
+     --li-app-update-button-color:#A3AED0;
+     --li-app-update-button-bg-color:#3c3f45;
+ 
+     --li-app-delete-button-color:#A3AED0;
+     --li-app-delete-button-bg-color:#3c3f45;   
+     
+     --li-app-pagelink-disabled-button-color:#A3AED0;
+     --li-app-pagelink-disabled-button-bg-color:#3c3f45;
+}
+
+.table-responsive {
+    position: relative;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    --bs-table-bg: none;
+}
+
+table.dataTable thead > tr > th.dt-orderable-asc, 
+table.dataTable thead > tr > th.dt-orderable-desc, 
+table.dataTable thead > tr > td.dt-orderable-asc, 
+table.dataTable thead > tr > td.dt-orderable-desc {    
+    background-color: var(--li-app-table-head-bg-color);
+}
+
+table.dataTable thead > tr > th.dt-orderable-asc:hover, 
+table.dataTable thead > tr > th.dt-orderable-desc:hover, 
+table.dataTable thead > tr > td.dt-orderable-asc:hover, 
+table.dataTable thead > tr > td.dt-orderable-desc:hover {
+    outline: 0;
+    outline-offset: 0;
+    color: var(--li-app-table-head-color);
+    background-color: var(--li-app-table-head-bg-hover-color);
+}
+
+table.dataTable th.dt-type-numeric, 
+table.dataTable th.dt-type-date, 
+table.dataTable td.dt-type-numeric, 
+table.dataTable td.dt-type-date {
+    text-align: left;    
+}
+
+.table>:not(caption)>*>* {
+    padding: 0.8rem 0.5rem;
+}
+
+table.dataTable {   
+    font-size: 0.9rem;
+}
+
+tbody, td, tfoot, th, thead, tr {
+    border-style: dashed;
+}
+
+table.dataTable td {
+    padding: 0.5rem 0;
+    vertical-align: middle;
+}
+
+/*-----------------------------*/
+/*  dataTable Badges
+/*-----------------------------*/
+table.dataTable .badge-success,
+table.dataTable .badge-danger {
+    font-size: 0.7rem; 
+    font-weight: 600;
+}
+
+table.dataTable .badge-success {
+    color: var(--li-app-badge-success-color);
+    background-color: var(--li-app-badge-success-bg-color);    
+}
+
+table.dataTable .badge-danger {
+    color: var(--li-app-badge-danger-color);
+    background-color: var(--li-app-badge-danger-bg-color);  
+}
+
+/*-----------------------------*/
+/*  dataTable Inputs
+/*-----------------------------*/
+div.dt-container div.dt-search input,
+div.dt-container div.dt-length select {
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+div.dt-container div.dt-length select {
+    padding: .375rem 2.25rem .375rem .75rem;
+}
+
+
+/*-----------------------------*/
+/*  dataTable Page lins
+/*-----------------------------*/
+.table-responsive .page-link {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+}
+
+.table-responsive .active>.page-link, 
+.table-responsive .page-link.active {
+    background-color: #1B84FF;
+    border-color: #1B84FF;
+}
+
+.table-responsive .disabled>.page-link, 
+.table-responsive .page-link.disabled {
+    color: var(--li-app-pagelink-disabled-button-color);
+    background-color: var(--li-app-pagelink-disabled-button-bg-color);
+    border-color: var(--li-app-pagelink-disabled-button-bg-color);    
+}
+
+/*-----------------------------*/
+/*  DataTables Btns
+/*-----------------------------*/
+.btn.btn-update,
+.btn.btn-delete {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+}
+
+.btn.btn-update, 
+.btn.btn-update i {
+    color: var(--li-app-update-button-color);
+}
+
+.btn.btn-update:hover, 
+.btn.btn-update:hover i {
+    color: var(--li-app-secondary-button-color);
+}
+
+.btn.btn-update {
+    background-color: var(--li-app-update-button-bg-color);
+}
+
+.btn.btn-update:hover {
+    background-color: var(--li-app-primary-button-bg-color) !important;
+}
+
+.btn.btn-delete, 
+.btn.btn-delete i {
+    color: var(--li-app-delete-button-color);
+}
+
+.btn.btn-delete:hover, 
+.btn.btn-delete:hover i {
+    color: var(--li-app-primary-button-color);
+}
+
+.btn.btn-delete {
+    background-color: var(--li-app-delete-button-bg-color);
+}
+
+.btn.btn-delete:hover {
+    background-color: var(--li-app-secondary-button-bg-color) !important;
+}

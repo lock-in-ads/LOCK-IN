@@ -42,7 +42,7 @@ class Address(BaseModel):
 
     cep = models.CharField(max_length=8)
     street = models.CharField(max_length=255, verbose_name="nome_da_rua")
-    number = models.PositiveSmallIntegerField(verbose_name="numero_casa")
+    number = models.CharField(max_length=10, verbose_name="numero_casa")
     city = models.CharField(max_length=255, verbose_name="cidade")
     uf = models.CharField(
         max_length=2,
@@ -66,3 +66,6 @@ class Address(BaseModel):
         ordering = ['-created_at']
         verbose_name = 'Endereco'
         verbose_name_plural = 'Enderecos'
+
+    def __str__(self):
+        return str(f"Rua: {self.street}- Nº: {self.number} {self.city} - {self.uf}")
