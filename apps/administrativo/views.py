@@ -7,8 +7,8 @@ def quick_assignment(request):
     lockers = Locker.objects.order_by('number')
     return render(request, 'locker/quick_assignment.html', {"lockers": lockers})
 
-def assign_locker(request, id):
-    locker = get_object_or_404(Locker, id=id) 
+def assign_locker(request, pk):
+    locker = get_object_or_404(Locker, id=pk) 
     if request.method == "POST":
         form = LockerAssignmentForm(request.POST)
         if form.is_valid():            
@@ -45,8 +45,8 @@ def add_locker(request):
         form = LockerForm()
     return render(request, 'locker/add_locker.html', {'form': form})
 
-def update_locker(request, id):
-    locker = get_object_or_404(Locker, id=id) 
+def update_locker(request, pk):
+    locker = get_object_or_404(Locker, id=pk) 
     if request.method == "POST":
         form = LockerForm(request.POST)
         if form.is_valid():            
@@ -67,8 +67,8 @@ def update_locker(request, id):
         form = LockerForm(initial=initial_locker_data)
     return render(request, 'locker/update_locker.html', {'form': form})
 
-def delete_locker(request, id):
-    locker = get_object_or_404(Locker, id=id)
+def delete_locker(request, pk):
+    locker = get_object_or_404(Locker, id=pk)
     if request.method == "POST":
         number = locker.number
         locker.delete()
