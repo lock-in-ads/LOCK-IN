@@ -2,7 +2,6 @@ from django.db import models
 from apps.core.models import BaseModel, Address
 from apps.clientes.models import Client
 
-# Create your models here.
 class Enterprise(BaseModel):
     legal_name = models.CharField(max_length=255, verbose_name="Razão Social")
     business_name = models.CharField(

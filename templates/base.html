@@ -113,19 +113,19 @@
               </h6>
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/' %}active{% endif %}" aria-current="page" href="/">
+                  <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'quick_assignment' %}active{% endif %}" href="{% url 'quick_assignment' %}">
                     <i class="bi bi-house-lock-fill"></i>
                     Atribuição Rápida
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/locker/add/' %}active{% endif %}" href="/locker/add/">
+                  <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'add_locker' %}active{% endif %}" href="{% url 'add_locker' %}">
                     <i class="bi bi-plus-circle"></i>
                     Cadastrar Armário
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/lockers/' %}active{% endif %}" href="/lockers">
+                  <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'lockers' %}active{% endif %}" href="{% url 'lockers' %}">
                     <i class="bi bi-file-earmark-text"></i>
                     Listar Armários
                   </a>
@@ -137,13 +137,13 @@
               </h6>
               <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/card/add/' %}active{% endif %}" href="/card/add/">
+                  <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'add_card' %}active{% endif %}" href="{% url 'add_card' %}">
                     <i class="bi bi-credit-card-2-back"></i>
                     Cadastrar Cartão
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/cards/' %}active{% endif %}" href="/cards">
+                  <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'cards' %}active{% endif %}" href="{% url 'cards' %}">
                     <i class="bi bi-card-list"></i>
                     Listar Cartões
                   </a>
@@ -155,13 +155,13 @@
               </h6>
               <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/user/add/' %}active{% endif %}" href="/user/add/">
+                  <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'add_client' %}active{% endif %}" href="{% url 'add_client' %}">
                     <i class="bi bi-plus-circle"></i>
                     Cadastrar Usuário
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2 {% if request.path == '/users/' %}active{% endif %}" href="/users">
+                  <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'clients' %}active{% endif %}" href="{% url 'clients' %}">
                     <i class="bi bi-person-lines-fill"></i>
                     Listar Usuários
                   </a>

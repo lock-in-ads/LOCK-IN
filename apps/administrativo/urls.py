@@ -10,8 +10,5 @@ urlpatterns = [
     path('locker/assign/<int:id>', views.assign_locker, name='assign_locker'),
 
     path('cards/', views.cards, name='cards'),
-    path('card/add/', views.add_card, name='add_card'),    
-    
-    path('users/', views.users, name='users'),     
-    path('user/add/', views.add_user, name='add_user'), 
+    path('card/add/', views.add_card, name='add_card'),   
 ]

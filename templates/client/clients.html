@@ -7,71 +7,57 @@
   <link href="{% static 'css/base/dataTables.custom.css' %}" rel="stylesheet">
 {% endblock %}
 
-{% block title %}LockIn - Armários{% endblock %}
+{% block title %}LockIn - Usuários{% endblock %}
 
 {% block content %}
-<!--begin::Locker List-->
+<!--begin::Client List-->
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-3 mb-3 mt-lg-5 mb-lg-5">
   <div class="card p-3 p-lg-5">
     <div
       class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
-      <h1 class="h2">Armários</h1>
+      <h1 class="h2">Usuários</h1>
     </div>
 
     {% include "partials/forms/messages.html" %}
     
-    <div class="table-responsive">
-      <table class="table" id="lockers">
+    <div class="class="table-responsive>
+      <table class="table" id="clients">
         <thead>
           <tr>
-            <th>Nº</th>
-            <th>Empresa</th>
-            <th>Usuário</th>
-            <th>Cartão</th>
-            <th>Disponibilidade</th>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {% for locker in lockers %}
+          {% for client in clients %}
           <tr>
-            <td>{{ locker.number|stringformat:"02d" }}</td>
-            <td>{{ locker.enterprise_id }}</td>
+            <td>{{ client.id }}</td>
+            <td>{{ client.name }}</td> 
+            <td>{{ client.phone }}</td>      
+            <td>{{ client.email }}</td>  
             <td>
-              {% if locker.client_id %}
-              {{ locker.client_id }}
-              {% else %} 
-              -----
-              {% endif %}
-            </td>
-            <td>{{ locker.card_id }}</td>      
-            <td>
-              {% if locker.available %}
-              <div class="badge badge-success">Disponível</div>
-              {% else %} 
-              <div class="badge badge-danger">Ocupado</div>
-              {% endif %}
-            </td>  
-            <td>
-              <a href="{% url 'update_locker' locker.id %}" class="btn btn-update" alt="Editar">
+              <a href="{% url 'update_locker' client.id %}" class="btn btn-update" alt="Editar">
                 <i class="bi bi-pencil"></i>
               </a>
-              <a href="{% url 'delete_locker' locker.id %}" class="btn btn-sm btn-delete" alt="Excluir">
+              <a href="{% url 'delete_locker' client.id %}" class="btn btn-sm btn-delete" alt="Excluir">
                 <i class="bi bi-trash"></i>
               </a>
-          </td>      
+          </td>        
           </tr>
           {% empty %}
           <tr>
-            <td colspan="5" class="text-center text-muted">Nenhum armário cadastrado.</td>
+            <td colspan="5" class="text-center text-muted">Nenhum usuário cadastrado.</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-    </div> 
+    </div>    
   </div>
 </main>
-<!--end::Locker List-->
+<!--end::Client List-->
 {% endblock %}
 
 {% block extra_js %}
@@ -83,15 +69,14 @@
 <script>
 $(document).ready(function() {
   // Se a tabela não for inicializada ainda, inicialize
-  if (!$.fn.dataTable.isDataTable('#lockers')) {
-    $('#lockers').DataTable({
+  if (!$.fn.dataTable.isDataTable('#clients')) {
+    $('#clients').DataTable({
       columnDefs: [
-            { width: '10%', targets: 0 },  // Primeira coluna (Número do Armário)
-            { width: '30%', targets: 1 },  // Segunda coluna (Empresa)
-            { width: '30%', targets: 2 },  // Terceira coluna (Usuário)
-            { width: '10%', targets: 3 },  // Quarta coluna (Cartão)
-            { width: '10%', targets: 4 },  // Quinta coluna (Disponível)
-            { width: '10%', targets: 5 }   // Sexta coluna (Ações)
+            { width: '10%', targets: 0 },  // Primeira coluna (Id)
+            { width: '30%', targets: 1 },  // Segunda coluna (Nome)
+            { width: '15%', targets: 2 },  // Terceira coluna (Telefone)
+            { width: '25%', targets: 3 },  // Quinta coluna (E-mail)
+            { width: '10%', targets: 4 }   // Sexta coluna (Ações)
         ],
         pageLength: 25,
         lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"] ], 

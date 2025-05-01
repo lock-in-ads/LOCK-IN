@@ -18,13 +18,7 @@
       <h1 class="h2">Cartões</h1>
     </div>
 
-    {% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-    {% endif %} 
+    {% include "partials/forms/messages.html" %}
 
     <div class="class="table-responsive>
       <table class="table" id="cards">
@@ -52,7 +46,7 @@
             </td>  
             <td>
               <a href="{% url 'update_locker' card.id %}" class="btn btn-update" alt="Editar">
-                <i class="bi bi-pencil-square"></i>
+                <i class="bi bi-pencil"></i>
               </a>
               <a href="{% url 'delete_locker' card.id %}" class="btn btn-sm btn-delete" alt="Excluir">
                 <i class="bi bi-trash"></i>
