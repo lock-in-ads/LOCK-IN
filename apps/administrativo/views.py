@@ -74,7 +74,6 @@ def delete_locker(request, id):
         locker.delete()
         messages.success(request, f"Armário {number} foi excluído com sucesso!")
         return redirect('lockers')
-    return render(request, 'locker/delete_locker.html', {'locker': locker})
 
 def cards(request):
     cards = Card.objects.all()
