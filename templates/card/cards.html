@@ -19,8 +19,9 @@
     </div>
 
     {% include "partials/forms/messages.html" %}
+    {% include "partials/confirm_delete_modal.html" %}
 
-    <div class="class="table-responsive>
+    <div class="table-responsive">
       <table class="table" id="cards">
         <thead>
           <tr>
@@ -45,10 +46,10 @@
               {% endif %}
             </td>  
             <td>
-              <a href="{% url 'update_locker' card.id %}" class="btn btn-update" alt="Editar">
+              <a href="{% url 'update_card' card.id %}" class="btn btn-update" alt="Editar">
                 <i class="bi bi-pencil"></i>
               </a>
-              <a href="{% url 'delete_locker' card.id %}" class="btn btn-sm btn-delete" alt="Excluir">
+              <a class="btn btn-sm btn-delete" alt="Excluir" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-name="Cartão {{ card.id }} - RFID: {{ card.rfid }}" data-url="{% url 'delete_card' card.id %}">
                 <i class="bi bi-trash"></i>
               </a>
           </td>        
@@ -67,10 +68,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<!-- DataTables -->
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
+{% include "partials/list_extra_js.html" %}
 
 <script>
 $(document).ready(function() {

@@ -2,6 +2,19 @@ from django import forms
 from apps.administrativo.models import Enterprise, Card
 from apps.clientes.models import Client
 
+class CardForm(forms.Form):
+    available = forms.BooleanField(
+        required=False,
+        initial=True,
+        label="Disponibilidade pra uso",
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
+    )  
+    rfid = forms.IntegerField(
+        label="Número RFID",
+        min_value=0, 
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Digite o nº RFID'})
+    )
+
 class LockerForm(forms.Form):
     available = forms.BooleanField(
         required=False,

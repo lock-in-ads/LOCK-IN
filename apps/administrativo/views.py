@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from apps.administrativo.models import Locker, Card
 from apps.administrativo.forms import *
 from django.contrib import messages
+from django.db.models import ProtectedError
 
 def quick_assignment(request):
     lockers = Locker.objects.order_by('number')
@@ -81,3 +82,32 @@ def cards(request):
 
 def add_card(request):
     return render(request, 'card/add_card.html')
+
+def update_card(request, pk):
+    card = get_object_or_404(Card, id=pk) 
+    if request.method == "POST":
+        form = CardForm(request.POST)
+        if form.is_valid():            
+            card.available = form.cleaned_data['available']
+            card.rfid = form.cleaned_data['rfid']
+            card.save()
+            messages.success(request, f"Cartão {card.id} - RFID: {card.rfid} foi atualizado com sucesso!")
+            return redirect('cards')  
+    else:
+        initial_card_data = {
+            'available': card.available,
+            'rfid': card.rfid,
+        }
+        form = CardForm(initial=initial_card_data)
+    return render(request, 'card/update_card.html', {'form': form})
+
+def delete_card(request, pk):
+    card = get_object_or_404(Card, id=pk)
+    if request.method == "POST":
+        card_details = f"{card.id} - RFID:{card.rfid}"
+        try:
+            card.delete()
+            messages.success(request, f"Cartão {card_details} foi excluído com sucesso!")
+        except ProtectedError:
+                messages.error(request, "Este cartão está sendo utilizado em um armário e não pode ser deletado!")       
+        return redirect('cards')

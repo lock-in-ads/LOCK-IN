@@ -51,9 +51,12 @@
     --li-app-secondary-button-color:#fff;
     --li-app-secondary-button-bg-color:#979797;
 
-    /*Alert*/
+    /*Alerts*/
     --li-app-alert-success-color:#17c653;
-    --li-app-alert-success-bg-color:#dcf9df;    
+    --li-app-alert-success-bg-color:#dcf9df;  
+
+    --li-app-alert-error-color:#f97280;
+    --li-app-alert-error-bg-color:#ffecf3; 
 
     /*Menu*/
     --bs-menu-dropdown-bg-color: #fff; 
@@ -124,9 +127,12 @@
     --li-app-secondary-button-color:#fff;
     --li-app-secondary-button-bg-color:#1B84FF;
 
-    /*Alert*/
+    /*Alerts*/
     --li-app-alert-success-color:#00A261;
-    --li-app-alert-success-bg-color:#1d1f27;  
+    --li-app-alert-success-bg-color:#1d1f27; 
+
+    --li-app-alert-error-color:#f97280;
+    --li-app-alert-error-bg-color:#1d1f27;  
 
     /*Menu*/
     --bs-menu-dropdown-bg-color: #1d1f27;
@@ -441,6 +447,12 @@ body {
     --bs-alert-color: var(--li-app-alert-success-color);
     --bs-alert-bg: var(--li-app-alert-success-bg-color);
     --bs-alert-border-color: var(--li-app-alert-success-color);
+}
+
+.alert-error {
+    --bs-alert-color: var(--li-app-alert-error-color);
+    --bs-alert-bg: var(--li-app-alert-error-bg-color);
+    --bs-alert-border-color: var(--li-app-alert-error-color);
 }
 
 /*-----------------------------*/
