@@ -68,4 +68,6 @@ class Address(BaseModel):
         verbose_name_plural = 'Enderecos'
 
     def __str__(self):
-        return str(f"Rua: {self.street}- Nº: {self.number} {self.city} - {self.uf}")
+        return str(
+            f"Rua: {self.street}- Nº: {self.number} {self.city} - {self.uf}"
+        )

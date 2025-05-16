@@ -9,7 +9,7 @@ urlpatterns = [
     path('locker/delete/<int:pk>', views.delete_locker, name='delete_locker'),
     path('locker/assign/<int:pk>', views.assign_locker, name='assign_locker'),
     path('cards/', views.cards, name='cards'),
-    path('card/add/', views.add_card, name='add_card'),   
+    path('card/add/', views.add_card, name='add_card'),
     path('card/update/<int:pk>', views.update_card, name='update_card'),
     path('card/delete/<int:pk>', views.delete_card, name='delete_card'),
 ]
