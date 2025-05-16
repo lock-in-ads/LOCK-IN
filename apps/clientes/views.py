@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from apps.clientes.models import Client
+from apps.clientes.models import Client, Address
 from apps.clientes.forms import *
 from django.contrib import messages
 

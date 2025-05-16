@@ -1,6 +1,8 @@
 from django.db import models
 from apps.core.models import BaseModel, Address
 from apps.clientes.models import Client
+from apps.arduino.models import Card
+
 
 class Enterprise(BaseModel):
     legal_name = models.CharField(max_length=255, verbose_name="Razão Social")
@@ -39,15 +41,15 @@ class Locker(BaseModel):
         on_delete=models.PROTECT,
         related_name="lockers",
         verbose_name="Cartão",
-        null=True, 
-        blank=True        
+        null=True,
+        blank=True
     )
     client_id = models.ForeignKey(
         Client,
         on_delete=models.PROTECT,
         related_name="lockers",
         verbose_name="Cliente",
-        null=True, 
+        null=True,
         blank=True
     )
     number = models.PositiveSmallIntegerField(verbose_name="Número do Armário")

@@ -2,6 +2,7 @@ from django import forms
 from apps.clientes.models import Client
 from apps.core.models import Address
 
+
 class ClientForm(forms.Form):
     name = forms.CharField(
         max_length=255,
