@@ -1,0 +1,723 @@
+:root {
+    --bs-text-gray-500: #636674;
+    --bs-text-gray-600: #979797; 
+    --bs-text-gray-700: #9A9CAE;
+    --bs-text-gray-800: #B5B7C8;
+
+    --bs-text-green-1:#17C653;
+
+    --bs-text-primary: #1B84FF;
+
+    --bs-danger: #F8285A;    
+    --bs-danger-inverse: #ffffff;
+
+
+    
+    --li-app-border-size:3px;
+    --li-app-border-radius: 0.375rem;
+
+
+
+    /*Lock*/
+    --li-app-lock-size:16px;
+    
+}
+
+
+[data-bs-theme=light] {    
+    /*Card*/
+    --bs-app-card-bg: #fff;
+    --bs-app-card-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+    --bs-app-card-border-color: #F1F1F4;
+    
+    /*Background*/
+    --li-app-bg-color: #F9F9F9;
+    --li-app-main-bg-color: #fff;
+
+    /*Header*/
+    --bs-app-header-base-bg-color: #fff;
+    --bs-app-header-base-box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.05);
+
+    /*Buttons*/
+    --li-app-primary-button-color:#fff;
+    --li-app-primary-button-bg-color:#1B84FF;
+
+    --li-app-danger-button-color:#fff;
+    --li-app-danger-button-bg-color:#f97280;
+
+    --li-app-cancel-button-color:#1B84FF;
+    --li-app-cancel-button-bg-color:#F9F9F9;
+
+    --li-app-secondary-button-color:#fff;
+    --li-app-secondary-button-bg-color:#979797;
+
+    /*Alerts*/
+    --li-app-alert-success-color:#17c653;
+    --li-app-alert-success-bg-color:#dcf9df;  
+
+    --li-app-alert-error-color:#f97280;
+    --li-app-alert-error-bg-color:#ffecf3; 
+
+    /*Menu*/
+    --bs-menu-dropdown-bg-color: #fff; 
+    --bs-menu-dropdown-box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
+    --bs-dropdown-active-color:#1B84FF;
+    --bs-dropdown-active-bg:#F1FAFF;
+    --bs-btn-bg-color: #F1FAFF;
+
+    /*Sidebar*/
+    --bs-app-sidebar-link-color: #707070;
+    --bs-app-sidebar-icon-color: #1B84FF;
+    --bs-app-sidebar-base-bg-color: #fff;
+    --bs-app-sidebar-active-color:#fff;
+    --bs-app-sidebar-active-bg-color:#1B84FF;
+    --bs-app-sidebar-base-box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.05);
+    --bs-app-sidebar-base-menu-link-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+
+    /*Footer*/
+    --bs-app-footer-base-bg-color: #fff;
+    --bs-app-footer-base-box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.05);
+
+    /*Locker*/
+    --li-app-locker-color:#17c653;
+    --li-app-locker-bg-color:#ECFFED;
+    --li-app-locker-border-color:#dcf9df;
+    --li-app-locker-air-bg-color:#a8e9af;
+    
+    --li-app-locker-unavailable-color:#f97280;
+    --li-app-locker-unavailable-bg-color:#ffecf3;
+    --li-app-locker-unavailable-border-color:#ffc3d3;
+    --li-app-locker-unavailable-air-bg-color:#fe9eb7;
+
+    /*Locker Card*/ 
+    --li-app-locker-card-color:#1B84FF;
+    --li-app-locker-card-primary-bg-color:#fff;
+    --li-app-locker-card-secondary-bg-color:#F9F9F9;
+    --li-app-locker-card-border-color:#dee2e6;
+
+    --li-app-locker-accepted-card-color:#17c653;
+    --li-app-locker-accepted-card-primary-bg-color:#dcf9df;
+    --li-app-locker-accepted-card-secondary-bg-color:#ECFFED;
+    --li-app-locker-accepted-card-border-color:#a8e9af;
+}
+
+[data-bs-theme=dark] {
+    /*Card*/
+    --bs-app-card-bg: #25282f;
+    --bs-app-card-box-shadow: none;
+    --bs-app-card-border-color: #1E2027;
+
+    /*Background*/
+    --li-app-bg-color: #0e131a;
+
+    /*Header*/
+    --bs-app-header-base-bg-color: #25282f;
+    --bs-app-header-base-box-shadow: none;
+
+    /*Buttons*/
+    --li-app-primary-button-color:#A3AED0;
+    --li-app-primary-button-bg-color:#3c3f45;
+
+    --li-app-danger-button-color:#fff;
+    --li-app-danger-button-bg-color:#f97280;
+
+    --li-app-cancel-button-color:#A3AED0;
+    --li-app-cancel-button-bg-color:#3c3f45;
+
+    --li-app-secondary-button-color:#fff;
+    --li-app-secondary-button-bg-color:#1B84FF;
+
+    /*Alerts*/
+    --li-app-alert-success-color:#00A261;
+    --li-app-alert-success-bg-color:#1d1f27; 
+
+    --li-app-alert-error-color:#f97280;
+    --li-app-alert-error-bg-color:#1d1f27;  
+
+    /*Menu*/
+    --bs-menu-dropdown-bg-color: #1d1f27;
+    --bs-menu-dropdown-box-shadow: none; 
+    --bs-dropdown-active-color:#A3AED0;
+    --bs-dropdown-active-bg:#363843;
+    --bs-btn-bg-color: #363843;
+
+    /*Sidebar*/
+    --bs-app-sidebar-link-color: #A3AED0;
+    --bs-app-sidebar-icon-color: #1b81f8;
+    --bs-app-sidebar-base-bg-color: #25282f;
+    --bs-app-sidebar-active-color:#fff;
+    --bs-app-sidebar-active-bg-color:#1B84FF;
+    --bs-app-sidebar-base-box-shadow: none;
+    --bs-app-sidebar-base-menu-link-box-shadow: none;
+
+    /*Footer*/
+    --bs-app-footer-base-bg-color: #25282f;
+    --bs-app-footer-base-box-shadow: none;
+
+    /*Locker*/
+    --li-app-locker-color:#1B84FF;
+    --li-app-locker-bg-color:#3c3f45;
+    --li-app-locker-border-color:#A3AED0;
+    --li-app-locker-air-bg-color:#A3AED0;
+    
+    --li-app-locker-unavailable-color:#3c3f45;
+    --li-app-locker-unavailable-bg-color:#25282f;
+    --li-app-locker-unavailable-border-color:#3c3f45;
+    --li-app-locker-unavailable-air-bg-color:#3c3f45;
+
+    /*Locker Card*/ 
+    --li-app-locker-card-color:#A3AED0;
+    --li-app-locker-card-primary-bg-color:#3c3f45;
+    --li-app-locker-card-secondary-bg-color:#3c3f45;
+    --li-app-locker-card-border-color:#A3AED0;
+
+    --li-app-locker-accepted-card-color:#1B84FF;
+    --li-app-locker-accepted-card-primary-bg-color:#3c3f45;
+    --li-app-locker-accepted-card-secondary-bg-color:#3c3f45;
+    --li-app-locker-accepted-card-border-color:#A3AED0;
+}
+
+[data-bs-theme=light] .theme-dark-show, 
+[data-bs-theme=dark] .theme-light-show {
+    display: none !important;
+}
+
+
+body {
+    font-family: "Inter", sans-serif;
+    background-color: var(--li-app-bg-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.offcanvas-md {
+    --bs-offcanvas-width: 245px;
+}
+
+.navbar {
+    min-height: 60px;
+    background-color: var(--bs-app-header-base-bg-color);
+    box-shadow: var(--bs-app-header-base-box-shadow);
+}
+
+.navbar-logo {
+    padding: 0 1rem;
+}
+
+.navbar-logo img {
+    max-height: 25px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.fs-1 {
+    font-size: 1.1rem !important;
+}
+
+.app-navbar {
+    display: flex;
+    align-items: stretch;
+}
+
+.app-navbar .app-navbar-item {
+    display: flex;
+    align-items: center;
+}
+
+.btn.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.btn i {
+    color: var(--bs-text-gray-600);
+}
+
+.btn:hover{
+    background-color: var(--bs-btn-bg-color) !important;
+}
+
+.btn:hover, .btn:hover i {
+    color: var(--bs-text-primary);
+}
+
+.btn > i {
+    display: inline-flex;
+    font-size: 1rem;
+    vertical-align: middle;   
+}
+
+.btn .badge {
+    font-size: 0.65rem;
+}
+
+.btn .badge-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    min-width: unset;
+    margin-left: -0.6rem !important;
+    margin-top: 0.6rem !important;
+    color: var(--bs-danger-inverse);
+    background-color: var(--bs-text-green-1);
+}
+
+.btn.custom,
+.btn.cancel, 
+.btn.danger {
+    width: auto;
+    color: var(--li-app-primary-button-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--li-app-primary-button-bg-color);
+    border-radius: var(--li-app-border-radius);
+    text-align: center;
+    background: var(--li-app-primary-button-bg-color);
+    display: inline-block;
+}
+
+.btn.custom i {
+    color: var(--li-app-primary-button-color);
+}
+  
+.btn.custom:hover {
+    color: var(--li-app-secondary-button-color);
+    border-color: var(--li-app-secondary-button-bg-color);
+    background: var(--li-app-secondary-button-bg-color) !important;
+}
+
+.btn.danger {
+    color: var(--li-app-danger-button-color);
+    border-color: var(--li-app-danger-button-bg-color);
+    background-color: var(--li-app-danger-button-bg-color);
+}
+
+.btn.danger i {
+    color: var(--li-app-danger-button-color);
+}
+  
+.btn.danger:hover {
+    color: var(--li-app-secondary-button-color);
+    border-color: var(--li-app-secondary-button-bg-color);
+    background: var(--li-app-secondary-button-bg-color) !important;
+}
+
+.btn.cancel {
+    color: var(--li-app-cancel-button-color);
+    border-color: var(--li-app-cancel-button-bg-color);
+    background-color: var(--li-app-cancel-button-bg-color);
+}
+
+.btn.cancel i {
+    color: var(--li-app-cancel-button-color);
+}
+
+.btn.cancel:hover, 
+.btn.cancel:hover i {
+    color: var(--li-app-secondary-button-color);
+}
+
+.btn.cancel:hover {
+    border-color: var(--li-app-secondary-button-bg-color);
+    background: var(--li-app-secondary-button-bg-color) !important;
+}
+
+/*-----------------------------*/
+/*  Bootstrap Fonts
+/*-----------------------------*/
+.bi {
+    display: inline-block;
+}  
+
+/*-----------------------------*/
+/*  Dropdown
+/*-----------------------------*/
+.dropdown-item:focus, 
+.dropdown-item:hover {
+    color: var(--bs-text-primary);
+    background-color: var(--bs-btn-bg-color);
+}
+
+.dropdown-menu {
+    border: 0;
+    box-shadow: var(--bs-menu-dropdown-box-shadow);
+    border-radius: 0.375rem;
+    will-change: transform;
+    background-color: var(--bs-menu-dropdown-bg-color);
+    animation: menu-sub-dropdown-animation-fade-in .3s ease 1,menu-sub-dropdown-animation-move-up .3s ease 1;
+}
+
+.dropdown-menu[data-bs-popper] {
+    --bs-dropdown-spacer:0;
+}
+
+.dropdown-item.active {
+    color: var(--bs-dropdown-active-color);
+    background-color: var(--bs-dropdown-active-bg);
+}
+
+.menu-rounded .menu-link {
+    border-radius: 0.375rem;
+}
+
+
+.fs-base {
+    font-size: 1rem !important;
+}
+
+
+.h-15px {
+    height: 15px !important;
+}
+.w-15px {
+    width: 15px !important;
+}
+
+.h-35px {
+    height: 35px !important;
+}
+.w-35px {
+    width: 35px !important;
+}
+
+.symbol img {
+    display: inline-block;
+    border-radius: 0.475rem;
+}
+
+.symbol-35px > img {
+    width: 35px;
+    height: 35px;
+}
+
+/*-----------------------------*/
+/*  Sidebar
+/*-----------------------------*/
+/*
+.sidebar {
+    background-color: var(--bs-app-sidebar-base-bg-color);
+    box-shadow: var(--bs-app-sidebar-base-box-shadow);
+}*/
+
+.sidebar .nav-link {
+    color: var(--bs-app-sidebar-link-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: .375rem;
+}
+  
+.sidebar .nav-link:hover {    
+    background-color: var(--bs-app-sidebar-base-bg-color);
+    box-shadow: var(--bs-app-sidebar-base-menu-link-box-shadow);
+}
+
+.sidebar .nav-link i {
+    color: var(--bs-app-sidebar-icon-color);
+}
+
+.sidebar .nav-link.active, 
+.sidebar .nav-link.active:hover {
+    color: var(--bs-app-sidebar-active-color);
+    background-color: var(--bs-app-sidebar-active-bg-color);
+}
+
+.sidebar .nav-link.active i {
+    color: var(--bs-app-sidebar-active-color);
+}
+  
+.sidebar-heading {
+    font-size: 1rem;
+}
+
+.sidebar .nav-link, .sidebar-heading{
+    margin: 0.25rem 0.5rem;
+}
+
+/*-----------------------------*/
+/*  alerts
+/*-----------------------------*/
+.alert-success {
+    --bs-alert-color: var(--li-app-alert-success-color);
+    --bs-alert-bg: var(--li-app-alert-success-bg-color);
+    --bs-alert-border-color: var(--li-app-alert-success-color);
+}
+
+.alert-error {
+    --bs-alert-color: var(--li-app-alert-error-color);
+    --bs-alert-bg: var(--li-app-alert-error-bg-color);
+    --bs-alert-border-color: var(--li-app-alert-error-color);
+}
+
+/*-----------------------------*/
+/*  Card
+/*-----------------------------*/
+.card {
+    background-color: var(--bs-app-card-bg);
+    box-shadow: var(--bs-app-card-box-shadow);
+    border: 0;
+}
+
+/*-----------------------------*/
+/*  Lock
+/*-----------------------------*/
+.quick-assignment {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(60px, auto));
+}
+
+.quick-assignment a.locker {
+    background-color: var(--li-app-locker-bg-color);
+    padding: 10px;    
+    color: var(--li-app-locker-color);
+    border: 2px solid var(--li-app-locker-border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: var(--bs-app-card-box-shadow);
+}
+
+.quick-assignment a.locker .wrapper {
+    display: grid;
+    grid-template-columns: calc(var(--li-app-lock-size)) minmax(auto, 2rem);
+    grid-column-gap: 15px;
+    justify-content:space-between;
+}
+
+.quick-assignment a.locker h2 {
+    width: 100%;
+    font-weight: 600;    
+    text-align: center;
+    margin: 0;
+}
+
+.quick-assignment a.locker .lock {
+    width: var(--li-app-lock-size);
+    height: var(--li-app-lock-size);
+    border-radius: calc(var(--li-app-lock-size)/2);
+    background-color: var(--li-app-locker-color);
+}
+
+.quick-assignment a.locker .lock ul {
+    --circleDiameter: calc(var(--li-app-lock-size ) - 2 * var(--li-app-border-size));
+    --circleMargin: calc(calc(var(--li-app-lock-size) - var(--circleDiameter))/2);
+    width: var(--circleDiameter);
+    height: var(--circleDiameter);
+    border-radius: calc(var(--circleDiameter)/2);
+    margin: var(--circleMargin);    
+    background-color: var(--li-app-locker-bg-color);
+    padding: 0;
+    list-style: none;
+    position: relative;
+}
+
+.quick-assignment a.locker .lock ul li {
+    width: var(--li-app-border-size);
+    height: calc(var(--li-app-lock-size)/2);
+    background-color: var(--li-app-locker-color);
+    border-radius: 0 0 calc(var(--li-app-border-size)/2) calc(var(--li-app-border-size)/2);
+    position: absolute;
+    top: 12px;
+    left: calc(50% - calc(var(--li-app-border-size)/2));
+}
+
+.quick-assignment a.locker ul.air {
+    list-style: none;
+    margin-bottom: 0.5rem;
+    padding-left: 0;
+}
+
+.quick-assignment a.locker ul.air li {
+    min-height: var(--li-app-border-size);
+    background-color: var(--li-app-locker-air-bg-color);
+    margin-bottom: 3px;
+    border-radius: calc(var(--li-app-border-size)/2);
+}
+
+/*-----------------------------*/
+/*  Lock Unavailable
+/*-----------------------------*/
+.quick-assignment a.unavailable {
+    background-color: var(--li-app-locker-unavailable-bg-color);
+    color: var(--li-app-locker-unavailable-color);
+    border-color: var(--li-app-locker-unavailable-border-color);   
+}
+
+.quick-assignment a.unavailable .lock {
+    background-color: var(--li-app-locker-unavailable-color);
+}
+
+.quick-assignment a.unavailable .lock ul {
+    background-color: var(--li-app-locker-unavailable-bg-color);
+}
+
+.quick-assignment a.unavailable .lock ul li {
+    background-color: var(--li-app-locker-unavailable-color);
+}
+
+.quick-assignment a.unavailable ul.air li {
+    background-color: var(--li-app-locker-unavailable-air-bg-color);
+}
+
+/*-----------------------------*/
+/*  Register Card
+/*-----------------------------*/
+.register-card {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    text-align: center;
+    border-radius: var(--li-app-border-radius);
+    background-color: var(--li-app-locker-card-secondary-bg-color);
+}
+
+.register-card h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.register-card .circle {
+    --li-app-circle-size:9rem;
+    width: var(--li-app-circle-size);
+    height: var(--li-app-circle-size);
+    border-radius: 50%;
+    color: var(--li-app-locker-card-color);
+    background-color: var(--li-app-locker-card-primary-bg-color);
+    border: var(--li-app-border-size) solid var(--li-app-locker-card-border-color);
+}
+
+.register-card .big-icon {  
+    --li-app-big-icon-size:4rem;
+    font-size: var(--li-app-big-icon-size);
+    height: var(--li-app-big-icon-size);
+}
+
+/*Register Card Accepted*/
+.register-card.accepted {
+    background-color: var(--li-app-locker-accepted-card-secondary-bg-color);
+}
+
+.register-card.accepted .circle {
+    color: var(--li-app-locker-accepted-card-color);
+    background-color: var(--li-app-locker-accepted-card-primary-bg-color);
+    border: var(--li-app-border-size) solid var(--li-app-locker-accepted-card-border-color);
+}
+
+.form-check-input:checked {
+    background-color: #28a745; /* verde Bootstrap */
+    border-color: #28a745;
+  }
+
+/* Cor do botão do switch (a bolinha) */
+.form-check-input:checked::before {
+    background-color: white;
+}
+
+
+
+/*-----------------------------*/
+/*  Footer
+/*-----------------------------*/
+.app-footer {
+    min-height: 60px;
+    background-color: var(--bs-app-footer-base-bg-color);
+    box-shadow: var(--bs-app-footer-base-box-shadow);
+    margin-top: auto;
+}
+
+/*-----------------------------*/
+/*  Media queries
+/*-----------------------------*/
+@media screen and (min-widht: 300px) {
+
+}
+
+@media only screen and (min-width: 768px) {
+    .w-md-40px {
+        width: 40px !important;
+    }
+    .h-md-40px {
+        height: 40px !important;
+    }
+    .sidebar .offcanvas-lg {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 48px;
+    }
+    .quick-assignment {
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(70px, auto));
+    }
+
+    .register-card h2 {
+        font-size: 1rem;
+    }
+    .register-card .circle {
+        --li-app-circle-size:14rem;
+    }    
+    .register-card .big-icon {  
+        --li-app-big-icon-size:8rem;
+    }
+}
+  
+@media screen and (min-width: 900px) {
+    .navbar {
+        min-height: 70px;
+    }
+    .ms-lg-6 {
+        margin-left: 1.5rem !important;
+    }
+    .me-lg-6 {
+        margin-right: 1.5rem !important;
+    }
+    .symbol-lg-45px > img {
+        width: 45px;
+        height: 45px;
+    }
+    .navbar-logo {
+        padding: 0 2rem;
+    }
+ 
+}
+  
+@media only screen and (min-width : 1224px) {
+    
+}
+
+
+@keyframes menu-sub-dropdown-animation-fade-in {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes menu-sub-dropdown-animation-move-up {
+    from {
+        margin-top: .75rem
+    }
+
+    to {
+        margin-top: 0
+    }
+}
+
+@keyframes menu-sub-dropdown-animation-move-down {
+    from {
+        margin-bottom: .75rem
+    }
+
+    to {
+        margin-bottom: 0
+    }
+}
