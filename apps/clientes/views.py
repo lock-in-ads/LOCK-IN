@@ -21,7 +21,7 @@ def add_client(request):
                 uf=form.cleaned_data['uf'],
                 address_2=form.cleaned_data['address_2'],
                 reference_point=form.cleaned_data['reference_point']
-            )            
+            )
             client = Client.objects.create(
                 name=form.cleaned_data['name'],
                 phone=form.cleaned_data['phone'],

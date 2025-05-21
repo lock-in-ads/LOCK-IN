@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
 class BaseModel(models.Model):
     criado_em = models.DateTimeField(auto_now_add=True)
     modificado_em = models.DateTimeField(auto_now=True)
@@ -49,7 +49,7 @@ class Address(BaseModel):
         default=UF_Choices.PB
     )
     address_2 = models.CharField(
-        max_length=255, 
+        max_length=255,
         verbose_name="complemento",
         blank=True,
         null=True

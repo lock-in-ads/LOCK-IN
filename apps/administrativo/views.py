@@ -19,7 +19,7 @@ def quick_assignment(request):
 
 
 def assign_locker(request, pk):
-    locker = get_object_or_404(Locker, id=pk) 
+    locker = get_object_or_404(Locker, id=pk)
     if request.method == "POST":
         form = LockerAssignmentForm(request.POST)
         if form.is_valid():
@@ -111,10 +111,10 @@ def add_card(request):
 
 
 def update_card(request, pk):
-    card = get_object_or_404(Card, id=pk) 
+    card = get_object_or_404(Card, id=pk)
     if request.method == "POST":
         form = CardForm(request.POST)
-        if form.is_valid():            
+        if form.is_valid():
             card.available = form.cleaned_data['available']
             card.rfid = form.cleaned_data['rfid']
             card.save()
