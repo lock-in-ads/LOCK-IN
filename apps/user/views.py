@@ -3,4 +3,4 @@ from django.views.generic import TemplateView
 
 
 class PainelView(LoginRequiredMixin, TemplateView):
-    template_name = 'login.html'
+    template_name = 'registration/login.html'
