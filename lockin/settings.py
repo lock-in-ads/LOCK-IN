@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.clientes',
     'apps.administrativo',
     'apps.arduino',
+    'apps.user',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# encaminhameentos das areas de login, logout e acesso não permitido
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
