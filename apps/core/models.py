@@ -5,6 +5,10 @@ from django.db import models
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_deleted = models.BooleanField(
+        verbose_name="Está excluido?",
+        default=False
+    )
 
     class Meta:
         abstract = True
@@ -50,7 +54,7 @@ class Address(BaseModel):
         default=UF_Choices.PB
     )
     address_2 = models.CharField(
-        max_length=255, 
+        max_length=255,
         verbose_name="complemento",
         blank=True,
         null=True

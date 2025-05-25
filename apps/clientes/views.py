@@ -1,11 +1,19 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.core.exceptions import ValidationError
 from apps.clientes.models import Client, Address
 from apps.clientes.forms import ClientForm
 from django.contrib import messages
+from apps.clientes.service.client_service import (
+    register_client,
+    add_address_to_client,
+    delete,
+    list_clients
+)
+from apps.core.services.address_service import register_address
 
 
 def clients(request):
-    clients = Client.objects.all()
+    clients = list_clients()
     return render(request, 'client/clients.html', {'clients': clients})
 
 
@@ -13,23 +21,35 @@ def add_client(request):
     if request.method == "POST":
         form = ClientForm(request.POST)
         if form.is_valid():
-            client_address = Address.objects.create(
-                cep=form.cleaned_data['cep'],
-                street=form.cleaned_data['street'],
-                number=form.cleaned_data['number'],
-                city=form.cleaned_data['city'],
-                uf=form.cleaned_data['uf'],
-                address_2=form.cleaned_data['address_2'],
-                reference_point=form.cleaned_data['reference_point']
-            )            
-            client = Client.objects.create(
-                name=form.cleaned_data['name'],
-                phone=form.cleaned_data['phone'],
-                email=form.cleaned_data['email'],
-                access_level=form.cleaned_data['access_level']
-            )
-            client.address.add(client_address)
-            return redirect('clients')
+            address_data = {
+                'cep': form.cleaned_data['cep'],
+                'street': form.cleaned_data['street'],
+                'number': form.cleaned_data['number'],
+                'city': form.cleaned_data['city'],
+                'uf': form.cleaned_data['uf'],
+                'address_2': form.cleaned_data['address_2'],
+                'reference_point': form.cleaned_data['reference_point']
+            }
+            client_data = {
+                'name': form.cleaned_data['name'],
+                'phone': form.cleaned_data['phone'],
+                'email': form.cleaned_data['email'],
+                'access_level': form.cleaned_data['access_level']
+            }
+            try:
+                client = register_client(client_data)
+                messages.success(request, "Usuario cadastrado com sucesso")
+                add_address_to_client(
+                    client,
+                    register_address(address_data)
+                )
+                return redirect('clients')
+
+            except ValidationError as e:
+                messages.error(request, e.message)
+
+        return render(request, 'client/add_client.html', {'form': form})
+
     else:
         form = ClientForm()
     return render(request, 'client/add_client.html', {'form': form})
@@ -82,6 +102,6 @@ def delete_client(request, pk):
     client = get_object_or_404(Client, id=pk)
     if request.method == "POST":
         name = client.name
-        client.delete()
+        delete(client)
         messages.success(request, f"Usuário {name} foi excluído com sucesso!")
         return redirect('clients')
