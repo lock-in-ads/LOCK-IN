@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('administrativo', '0002_alter_locker_card_id_and_more'),
+        ('administrativo', '0001_initial'),
     ]
 
     operations = [

@@ -13,10 +13,8 @@ def add_address_to_client(client, address):
 
 
 def delete(data):
-    print(ClientRepository.soft_delete(data).is_deleted)
     return ClientRepository.soft_delete(data)
 
 
 def list_clients():
-    print(ClientRepository.list_active())
     return ClientRepository.list_active()
