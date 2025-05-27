@@ -7,15 +7,14 @@ from apps.administrativo.forms import (
 )
 from django.contrib import messages
 from django.db.models import ProtectedError
+from django.views.generic import ListView
 
 
-def quick_assignment(request):
-    lockers = Locker.objects.order_by('number')
-    return render(
-        request,
-        'locker/quick_assignment.html',
-        {"lockers": lockers}
-    )
+class QuickAssignmentView(ListView):
+    model = Locker
+    template_name = 'locker/quick_assignment.html'
+    context_object_name = 'lockers'
+    ordering = ['number']
 
 
 def assign_locker(request, pk):

@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import QuickAssignmentView
 
 urlpatterns = [
     path('', views.quick_assignment, name='quick_assignment'),
@@ -12,4 +13,5 @@ urlpatterns = [
     path('card/add/', views.add_card, name='add_card'),
     path('card/update/<int:pk>', views.update_card, name='update_card'),
     path('card/delete/<int:pk>', views.delete_card, name='delete_card'),
+    path('quick-assignment/', QuickAssignmentView.as_view(), name='quick_assignment'),
 ]
