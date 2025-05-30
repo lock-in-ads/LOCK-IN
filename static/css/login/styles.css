@@ -44,7 +44,3 @@
 footer.app-footer span {
   color: var(--bs-app-footer-base-tx-color);
 }
-
-.custom-login-btn:hover {
-  color: var(--bs-app-footer-base-tx-color) !important;
-}
