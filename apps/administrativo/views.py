@@ -7,39 +7,39 @@ from apps.administrativo.forms import (
 )
 from django.contrib import messages
 from django.db.models import ProtectedError
+from django.views.generic import ListView
+from django.views.generic.edit import UpdateView
 
 
-def quick_assignment(request):
-    lockers = Locker.objects.order_by('number')
-    return render(
-        request,
-        'locker/quick_assignment.html',
-        {"lockers": lockers}
-    )
+class QuickAssignmentView(ListView):
+    model = Locker
+    template_name = 'locker/quick_assignment.html'
+    context_object_name = 'lockers'
+    ordering = ['number']
 
 
-def assign_locker(request, pk):
-    locker = get_object_or_404(Locker, id=pk)
-    if request.method == "POST":
-        form = LockerAssignmentForm(request.POST)
-        if form.is_valid():
-            locker.available = form.cleaned_data['available']
-            locker.client_id = form.cleaned_data['client']
-            locker.save()
-            return redirect('quick_assignment')
-    else:
-        initial_locker_data = {
+class AssignLockerView(UpdateView):
+    model = Locker
+    form_class = LockerAssignmentForm
+    template_name = 'locker/assign_locker.html'
+    pk_url_kwarg = 'pk'
+    context_object_name = 'locker'
+
+    def get_initial(self):
+        locker = self.get_object()
+        return {
             'available': locker.available,
             'number': locker.number,
             'card': locker.card_id,
             'client': locker.client_id
         }
-        form = LockerAssignmentForm(initial=initial_locker_data)
-    return render(
-        request,
-        'locker/assign_locker.html',
-        {'form': form, 'locker': locker}
-    )
+
+    def form_valid(self, form):
+        locker = self.get_object()
+        locker.available = form.cleaned_data['available']
+        locker.client_id = form.cleaned_data['client']
+        locker.save()
+        return redirect('quick_assignment')
 
 
 def lockers(request):

@@ -1,19 +1,22 @@
 {% load static %}
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-br" data-bs-theme="auto">
+
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Sistema criado como trabalho de Extensão do P3-A da faculdade UNIFIP, para gerenciamento de Armários com trancas eletrônicas. Interligando uma interface web com modulos Arduino.">
+  <meta name="author" content="André Antônio, Thiago Araujo, Paulo Cleidson, Anderson Silva, Rogério Nunes">
+  <title>{% block title %}LockIn{% endblock %}</title>
 
-  <!-- Fonts -->
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+  <!-- Bootstrap 5.3.3 -->
+  <link href="{% static 'css/base/bootstrap.min.css' %}" rel="stylesheet">
 
-  <link rel="stylesheet" href="{% static 'css/Login/style.css' %}">
-
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <!-- Custom styles -->
+  <link href="{% static 'css/base/styles.css' %}" rel="stylesheet">  
+  
+  {% block extra_css %}{% endblock %}
 
   <!-- Font Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -21,12 +24,10 @@
 
   <!-- Font Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-  <title>Login</title>
 </head>
 <body>
 
-  <header class="navbar sticky-top flex-md-nowrap p-0">
+    <header class="navbar sticky-top flex-md-nowrap p-0">
     <!--begin::Menu Mobile-->
     <div class="d-flex align-items-center d-md-none ms-2" title="Show sidebar menu">
       <a class="btn btn-icon btn-active-color-primary w-35px h-35px" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,6 +44,7 @@
     <!--end::Logo-->
 
     <div class="app-navbar flex-grow-1 justify-content-end">
+
       <!--begin::Chat-->
       <div class="app-navbar-item ms-2">
         <div class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px position-relative" id="kt_drawer_chat_toggle">
@@ -88,10 +90,11 @@
         </ul>
       </li>
       <!--end::Color-->
+
       <!--begin::User-->
       <div class="app-navbar-item ms-2 me-2 ms-lg-6 me-lg-6">
         <div class="cursor-pointer symbol symbol-35px symbol-lg-45px">
-          <img src="{% static 'images/andre.jfif' %}" alt="user">
+          <img src="{% static 'images/login.jpg' %}" alt="user">
         </div>
       </div>
       <!--end::User-->
@@ -107,28 +110,29 @@
 
       <div class="cotainer-login">
         <div class="row justify-content-center">
-          <div class="col-md-8">
+          <div class="col-md-5">
             <div class="card">
               <div class="card-body">
-
                 <form method="post">
                   {% csrf_token %}
                   <div class="form-group row">
-                    <label for="email_address" class="col-md-4 col-form-label text-md-right">Nome</label>
+                    <label for="email_address" class="col-md-3 col-form-label text-md-right">Nome</label>
                     <div class="col-md-6">
                       <input type="text" id="email_address" class="form-control" name="username" required autofocus>
                     </div>
                   </div>
 
                   <div class="form-group row">
-                    <label for="password" class="col-md-4 col-form-label text-md-right">Senha</label>
+                    <label for="password" class="col-md-3 col-form-label text-md-right">Senha</label>
                     <div class="col-md-6">
                       <input type="password" id="password" class="form-control" name="password" required>
                     </div>
                   </div>
+                </form>
+              </div>
 
                   <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary custom-login-btn">
                       Login
                     </button>
                   </div>
@@ -152,9 +156,9 @@
   </div>
 
   <footer class="dcontainer-fluid app-footer px-0">
-  <div class="d-flex flex-wrap justify-content-center align-items-center py-4 mt-3">
-    <span class="mb-3 mb-md-0 ">© 2025 <b>Lock In</b>. Todos os direitos reservados.</span>
-  </div>
+    <div class="d-flex flex-wrap justify-content-center align-items-center py-4 mt-3">
+      <span class="mb-3 mb-md-0 ">© 2025 <b>Lock In</b>. Todos os direitos reservados.</span>
+    </div>
   </footer>
 
   <script src="{% static 'js/base/bootstrap.bundle.min.js' %}"></script>
