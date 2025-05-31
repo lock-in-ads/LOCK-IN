@@ -1,8 +1,10 @@
+from django.views import View
+from django.views.generic import ListView
 from django.shortcuts import get_object_or_404, render, redirect
-from django.core.exceptions import ValidationError
-from apps.clientes.models import Client, Address
-from apps.clientes.forms import ClientForm
 from django.contrib import messages
+from django.core.exceptions import ValidationError
+from apps.clientes.models import Client
+from apps.clientes.forms import ClientForm
 from apps.clientes.service.client_service import (
     register_client,
     add_address_to_client,
@@ -12,13 +14,23 @@ from apps.clientes.service.client_service import (
 from apps.core.services.address_service import register_address
 
 
-def clients(request):
-    clients = list_clients()
-    return render(request, 'client/clients.html', {'clients': clients})
+class ClientListView(ListView):
+    model = Client
+    template_name = 'client/clients.html'
+    context_object_name = 'clients'
+
+    def get_queryset(self):
+        return list_clients()
 
 
-def add_client(request):
-    if request.method == "POST":
+class ClientCreateView(View):
+    template_name = 'client/add_client.html'
+
+    def get(self, request):
+        form = ClientForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
         form = ClientForm(request.POST)
         if form.is_valid():
             address_data = {
@@ -38,50 +50,22 @@ def add_client(request):
             }
             try:
                 client = register_client(client_data)
-                messages.success(request, "Usuario cadastrado com sucesso")
-                add_address_to_client(
-                    client,
-                    register_address(address_data)
-                )
+                add_address_to_client(client, register_address(address_data))
+                messages.success(request, "Usuário cadastrado com sucesso")
                 return redirect('clients')
-
             except ValidationError as e:
                 messages.error(request, e.message)
 
-        return render(request, 'client/add_client.html', {'form': form})
-
-    else:
-        form = ClientForm()
-    return render(request, 'client/add_client.html', {'form': form})
+        return render(request, self.template_name, {'form': form})
 
 
-def update_client(request, pk):
-    client = get_object_or_404(Client, id=pk)
-    address = client.address.first()
-    if request.method == "POST":
-        form = ClientForm(request.POST)
-        if form.is_valid():
-            client.name = form.cleaned_data['name']
-            client.phone = form.cleaned_data['phone']
-            client.email = form.cleaned_data['email']
-            client.access_level = form.cleaned_data['access_level']
-            address.cep = form.cleaned_data['cep']
-            address.street = form.cleaned_data['street']
-            address.number = form.cleaned_data['number']
-            address.city = form.cleaned_data['city']
-            address.uf = form.cleaned_data['uf']
-            address.address_2 = form.cleaned_data['address_2']
-            address.reference_point = form.cleaned_data['reference_point']
-            address.save()
+class ClientUpdateView(View):
+    template_name = 'client/update_client.html'
 
-            client.save()
-            messages.success(
-                request,
-                f"Usuário {client.name} foi atualizado com sucesso!"
-            )
-            return redirect('clients')
-    else:
-        initial_client_data = {
+    def get(self, request, pk):
+        client = get_object_or_404(Client, id=pk)
+        address = client.address.first()
+        initial_data = {
             'name': client.name,
             'phone': client.phone,
             'email': client.email,
@@ -94,13 +78,46 @@ def update_client(request, pk):
             'address_2': address.address_2,
             'reference_point': address.reference_point
         }
-        form = ClientForm(initial=initial_client_data)
-    return render(request, 'client/update_client.html', {'form': form})
+        form = ClientForm(initial=initial_data)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, pk):
+        client = get_object_or_404(Client, id=pk)
+        address = client.address.first()
+        form = ClientForm(request.POST)
+        if form.is_valid():
+            client.name = form.cleaned_data['name']
+            client.phone = form.cleaned_data['phone']
+            client.email = form.cleaned_data['email']
+            client.access_level = form.cleaned_data['access_level']
+
+            address.cep = form.cleaned_data['cep']
+            address.street = form.cleaned_data['street']
+            address.number = form.cleaned_data['number']
+            address.city = form.cleaned_data['city']
+            address.uf = form.cleaned_data['uf']
+            address.address_2 = form.cleaned_data['address_2']
+            address.reference_point = form.cleaned_data['reference_point']
+
+            client.save()
+            address.save()
+
+            messages.success(
+                request, f"Usuário {client.name} foi atualizado com sucesso!"
+            )
+            return redirect('clients')
+        return render(request, self.template_name, {'form': form})
 
 
-def delete_client(request, pk):
-    client = get_object_or_404(Client, id=pk)
-    if request.method == "POST":
+class ClientDeleteView(View):
+    template_name = 'client/confirm_delete.html'
+
+    def get(self, request, pk):
+        client = get_object_or_404(Client, id=pk)
+        return render(request, self.template_name, {'client': client})
+
+    def post(self, request, pk):
+        client = get_object_or_404(Client, id=pk)
         name = client.name
         delete(client)
         messages.success(request, f"Usuário {name} foi excluído com sucesso!")

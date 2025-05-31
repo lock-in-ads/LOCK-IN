@@ -1,0 +1,46 @@
+@import "../base/styles.css";
+
+/*-----------------------------*/
+/*  Login
+/*-----------------------------*/
+.container-fluid {
+    background-color: var(--li-app-bg-color);
+}
+
+.card, .card-body {
+    background-color: var(--bs-app-header-base-bg-color);
+    justify-items: center;
+}
+
+.navbar-laravel {
+    box-shadow: 0 2px 4px rgba(0,0,0,.04);
+}
+
+.my-form {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.my-form .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login-form {
+    color: var(--bs-app-footer-base-tx-color);
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.form-group input {
+    background-color: var(--bs-app-card-bg);
+}
+
+.login-form .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+footer.app-footer span {
+  color: var(--bs-app-footer-base-tx-color);
+}
