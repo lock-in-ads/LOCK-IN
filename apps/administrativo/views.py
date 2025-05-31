@@ -1,16 +1,23 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from apps.administrativo.models import Locker, Card
+from django.core.exceptions import ValidationError
 from apps.administrativo.forms import (
     LockerAssignmentForm,
     LockerForm,
     CardForm
+)
+from apps.administrativo.service.locker_service import (
+    register_locker,
+    list_relevant,
+    update_locker_data,
+    delete
 )
 from django.contrib import messages
 from django.db.models import ProtectedError
 
 
 def quick_assignment(request):
-    lockers = Locker.objects.order_by('number')
+    lockers = list_relevant()
     return render(
         request,
         'locker/quick_assignment.html',
@@ -23,8 +30,11 @@ def assign_locker(request, pk):
     if request.method == "POST":
         form = LockerAssignmentForm(request.POST)
         if form.is_valid():
-            locker.available = form.cleaned_data['available']
-            locker.client_id = form.cleaned_data['client']
+            locker_data = {
+                'available': form.cleaned_data['available'],
+                'client_id': form.cleaned_data['client']
+            }
+            update_locker_data(data=locker_data)
             locker.save()
             return redirect('quick_assignment')
     else:
@@ -43,7 +53,7 @@ def assign_locker(request, pk):
 
 
 def lockers(request):
-    Lockers = Locker.objects.order_by('number')
+    Lockers = list_relevant()
     return render(request, 'locker/lockers.html', {"lockers": Lockers})
 
 
@@ -51,12 +61,16 @@ def add_locker(request):
     if request.method == "POST":
         form = LockerForm(request.POST)
         if form.is_valid():
-            Locker.objects.create(
-                available=form.cleaned_data['available'],
-                number=form.cleaned_data['number'],
-                card_id=form.cleaned_data['card'],
-                enterprise_id=form.cleaned_data['enterprise']
-            )
+            locker = {
+                'available': form.cleaned_data['available'],
+                'number': form.cleaned_data['number'],
+                'card_id': form.cleaned_data['card'],
+                'enterprise_id': form.cleaned_data['enterprise']
+            }
+            try:
+                register_locker(locker)
+            except ValidationError as e:
+                messages.error(request, e.message)
             return redirect('lockers')
     else:
         form = LockerForm()
@@ -68,10 +82,13 @@ def update_locker(request, pk):
     if request.method == "POST":
         form = LockerForm(request.POST)
         if form.is_valid():
-            locker.available = form.cleaned_data['available']
-            locker.number = form.cleaned_data['number']
-            locker.card_id = form.cleaned_data['card']
-            locker.enterprise_id = form.cleaned_data['enterprise']
+            locker_data = {
+                'available': form.cleaned_data['available'],
+                'number': form.cleaned_data['number'],
+                'card': form.cleaned_data['card'],
+                'enterprise': form.cleaned_data['enterprise']
+            }
+            update_locker_data(data=locker_data)
             locker.save()
             messages.success(
                 request,
@@ -93,7 +110,7 @@ def delete_locker(request, pk):
     locker = get_object_or_404(Locker, id=pk)
     if request.method == "POST":
         number = locker.number
-        locker.delete()
+        delete(data=locker)
         messages.success(
             request,
             f"Armário {number} foi excluído com sucesso!"

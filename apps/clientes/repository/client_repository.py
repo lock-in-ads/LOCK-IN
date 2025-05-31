@@ -17,6 +17,10 @@ class ClientRepository:
         return data
 
     @staticmethod
+    def update(data):
+        return Client.objects.update(**data)
+
+    @staticmethod
     def link_address(client, address):
         return client.address.add(address)
 

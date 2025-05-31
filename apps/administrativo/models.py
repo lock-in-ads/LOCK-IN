@@ -56,7 +56,7 @@ class Locker(BaseModel):
     available = models.BooleanField(default=True, verbose_name="Disponivel")
 
     class Meta:
-        ordering = ['-created_at', 'available']
+        ordering = ['-created_at', 'available', 'number']
         verbose_name = "Armário"
         verbose_name_plural = "Armários"
 
