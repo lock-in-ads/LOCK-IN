@@ -12,15 +12,18 @@ from apps.clientes.service.client_service import (
     add_address_to_client,
     delete,
     list_relevant,
-    update_client
+    update_client,
+    get_by_name,
+    order_by_name,
+    get_by_number,
+    order_by_number
 )
 from apps.core.services.address_service import (
     register_address,
     update_address
 )
-
-from apps.core.services.address_service import register_address
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class ClientListView(LoginRequiredMixin, ListView):
     model = Client

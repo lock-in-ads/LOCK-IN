@@ -29,8 +29,20 @@ def update_client(pk, data):
     return ClientRepository.update(pk, data)
 
 
-def get_by_name():
-    return ClientRepository.get_by_name()
+def get_by_name(name):
+    return ClientRepository.get_by_name(name)
+
+
+def order_by_name(direction):
+    return ClientRepository.order_by_name(direction)
+
+
+def get_by_number(number):
+    return ClientRepository.get_by_number(number)
+
+
+def order_by_number(direction):
+    return ClientRepository.order_by_number(direction)
 
 
 def list_relevant():

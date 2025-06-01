@@ -8,7 +8,31 @@ class ClientRepository:
 
     @staticmethod
     def get_by_name(name):
-        return Client.objects.filter(name=name, is_deleted=False).all().order_by('name')
+        return Client.objects.filter(name=name, is_deleted=False).all()
+
+    @staticmethod
+    def order_by_name(direction):
+        if direction:
+            orientation = ''
+        else:
+            orientation = '-'
+        return Client.objects.filter(
+            is_deleted=False
+        ).all().order_by(f'{orientation}name')
+
+    @staticmethod
+    def get_by_number(number):
+        return Client.objects.filter(number=number, is_deleted=False).all()
+
+    @staticmethod
+    def order_by_number(direction):
+        if direction:
+            orientation = ''
+        else:
+            orientation = '-'
+        return Client.objects.filter(
+            is_deleted=False
+        ).all().order_by(f'{orientation}number')
 
     @staticmethod
     def detail(pk):
