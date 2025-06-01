@@ -24,9 +24,7 @@
     {% include "partials/forms/messages.html" %}
     {% include "partials/confirm_delete_modal.html" %}
 
-
-    {% include 'partials/client/filter.html' %}
-
+    {% include 'client/filter.html' %}
     <div class="table-responsive">
       <table class="table" id="clients">
         <thead>
@@ -78,6 +76,7 @@ $(document).ready(function() {
   // Se a tabela não for inicializada ainda, inicialize
   if (!$.fn.dataTable.isDataTable('#clients')) {
     $('#clients').DataTable({
+      ordering: false, 
       searching:false,
       paging: false,            // remove paginação
       lengthChange: false,      // remove seletor "mostrar X registros"

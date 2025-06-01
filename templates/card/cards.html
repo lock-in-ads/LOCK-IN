@@ -80,6 +80,7 @@ $(document).ready(function() {
   // Se a tabela não for inicializada ainda, inicialize
   if (!$.fn.dataTable.isDataTable('#cards')) {
     $('#cards').DataTable({
+      ordering: false,
       searching:false,
       paging: false,            // remove paginação
       lengthChange: false,      // remove seletor "mostrar X registros"

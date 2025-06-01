@@ -32,9 +32,27 @@ class ClientListView(LoginRequiredMixin, ListView):
     
     def get_paginate_by(self, queryset):
         return self.request.GET.get('paginate_by', 5)  
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        get_copy = self.request.GET.copy()
+        if get_copy.get('page'):
+            get_copy.pop('page')
+        context['get_copy'] = get_copy
+        return context
 
     def get_queryset(self):
-        return list_relevant()
+        queryset = list_relevant()
+        name_search = self.request.GET.get('name_search')
+        order_by = self.request.GET.get('order_by')
+
+        if name_search:
+            queryset = queryset.filter(name__icontains=name_search)
+        
+        if order_by:
+            queryset = queryset.order_by(order_by)        
+        
+        return queryset
 
 
 class ClientCreateView(LoginRequiredMixin, View):

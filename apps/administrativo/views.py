@@ -24,6 +24,7 @@ from django.views.generic.edit import (
     DeleteView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 
 class QuickAssignmentView(LoginRequiredMixin, ListView):
     model = Locker
@@ -84,8 +85,26 @@ class ListLockersView(LoginRequiredMixin, ListView):
     def get_paginate_by(self, queryset):
         return self.request.GET.get('paginate_by', 5)
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        get_copy = self.request.GET.copy()
+        if get_copy.get('page'):
+            get_copy.pop('page')
+        context['get_copy'] = get_copy
+        return context
+    
     def get_queryset(self):
-        return list_relevant()
+        queryset = list_relevant()
+        name_search = self.request.GET.get('name_search')
+        order_by = self.request.GET.get('order_by')
+
+        if name_search:
+            queryset = queryset.filter(Q(client__name__icontains=name_search))
+        
+        if order_by:
+            queryset = queryset.order_by(order_by)        
+        
+        return queryset
 
 
 class AddLockerView(LoginRequiredMixin, CreateView):
@@ -115,7 +134,7 @@ class AddLockerView(LoginRequiredMixin, CreateView):
             return self.form_invalid(form)
 
 
-class UpdateLockerView(UpdateView):
+class UpdateLockerView(LoginRequiredMixin, UpdateView):
     template_name = 'locker/update_locker.html'
 
     def get_queryset(self):
@@ -170,38 +189,7 @@ class UpdateLockerView(UpdateView):
             messages.error(self.request, str(e))
             return self.form_invalid(form)
 
-
-
-    # def form_valid(self, form):
-    #     pk = self.kwargs.get('pk')
-    #     if not pk:
-    #         messages.error(self.request, "Esse item não existe.")
-
-    #     locker = detail(pk=pk)
-    #     if not locker:
-    #         return redirect('lockers')
-
-    #     locker_data = {
-    #         'available': form.cleaned_data['available'],
-    #         'number': form.cleaned_data['number'],
-    #         'card': form.cleaned_data['card'],
-    #         'enterprise': form.cleaned_data['enterprise']
-    #     }
-
-    #     try:
-    #         update_locker_data(data=locker_data)
-    #         locker.save()
-    #         messages.success(
-    #             self.request,
-    #             f"Armário {locker_data['number']} foi atualizado com sucesso!"
-    #         )
-    #         return redirect('lockers')
-    #     except ValidationError as e:
-    #         messages.error(self.request, str(e))
-    #         return self.form_invalid(form)
-
-
-class DeleteLockerView(DeleteView):
+class DeleteLockerView(LoginRequiredMixin, DeleteView):
     model = Locker
     pk_url_kwarg = 'pk'
     context_object_name = 'locker'
@@ -241,13 +229,12 @@ class DeleteLockerView(DeleteView):
 
 
 # TODO CHANGE THIS TO ARDUINO APP
-class CardListView(View):
+class CardListView(LoginRequiredMixin, View):
     def get(self, request):
         cards = Card.objects.all()
         return render(request, 'card/cards.html', {'cards': cards})
 
-
-class CardAddView(View):
+class CardAddView(LoginRequiredMixin, View):
     def get(self, request):
         form = CardForm()
         return render(request, 'card/add_card.html', {'form': form})
@@ -265,8 +252,7 @@ class CardAddView(View):
             return redirect('cards')
         return render(request, 'card/add_card.html', {'form': form})
 
-
-class CardUpdateView(View):
+class CardUpdateView(LoginRequiredMixin, View):
     def get(self, request, pk):
         card = get_object_or_404(Card, id=pk)
         initial_data = {
@@ -288,7 +274,7 @@ class CardUpdateView(View):
         return render(request, 'card/update_card.html', {'form': form, 'card': card})
 
 
-class CardDeleteView(View):
+class CardDeleteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         card = get_object_or_404(Card, id=pk)
         card_details = f"{card.id} - RFID:{card.rfid}"
