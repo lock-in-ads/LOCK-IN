@@ -19,8 +19,10 @@ from apps.core.services.address_service import (
     update_address
 )
 
+from apps.core.services.address_service import register_address
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class ClientListView(ListView):
+class ClientListView(LoginRequiredMixin, ListView):
     model = Client
     template_name = 'client/clients.html'
     context_object_name = 'clients'
@@ -29,7 +31,7 @@ class ClientListView(ListView):
         return list_relevant()
 
 
-class ClientCreateView(View):
+class ClientCreateView(LoginRequiredMixin, View):
     template_name = 'client/add_client.html'
 
     def get(self, request):
@@ -65,7 +67,7 @@ class ClientCreateView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class ClientUpdateView(View):
+class ClientUpdateView(LoginRequiredMixin, View):
     template_name = 'client/update_client.html'
 
     def get(self, request, pk):
@@ -119,7 +121,7 @@ class ClientUpdateView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class ClientDeleteView(View):
+class ClientDeleteView(LoginRequiredMixin, View):
     template_name = 'client/confirm_delete.html'
 
     def get(self, request, pk):

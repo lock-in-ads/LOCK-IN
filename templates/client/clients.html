@@ -64,6 +64,7 @@
 {% block extra_js %}
 {% include "partials/list_extra_js.html" %}
 
+{% if clients %}
 <script>
 $(document).ready(function() {
   // Se a tabela não for inicializada ainda, inicialize
@@ -91,4 +92,6 @@ $(document).ready(function() {
   }
 });
 </script>
+{% endif %}
+
 {% endblock %}

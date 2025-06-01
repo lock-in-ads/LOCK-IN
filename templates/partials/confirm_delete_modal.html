@@ -4,7 +4,9 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+                <h5 class="modal-title" id="confirmDeleteModalLabel">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar Exclusão
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Fechar"></button>
             </div>
@@ -12,7 +14,7 @@
                 Tem certeza que deseja excluir <strong id="name"></strong>?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn cancel px-lg-5 me-3" data-bs-dismiss="modal"><i class="bi bi-floppy me-2"></i> Cancelar</button>
+                <button type="button" class="btn cancel px-lg-5 me-3" data-bs-dismiss="modal">Cancelar</button>
 
                 <form method="post" id="deleteForm">
                     {% csrf_token %}
