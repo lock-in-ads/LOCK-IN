@@ -1,3 +1,4 @@
+from django.views import View
 from django.shortcuts import get_object_or_404, render, redirect
 from apps.administrativo.models import Locker, Card
 from django.core.exceptions import ValidationError
@@ -107,7 +108,11 @@ class AddLockerView(LoginRequiredMixin, CreateView):
             messages.success(self.request, "Armário adicionado com sucesso!")
             return redirect('lockers')
         except ValidationError as e:
+<<<<<<< HEAD
+            form.add_error(self.request, str(e))
+=======
             form.add_error(None, str(e))
+>>>>>>> b080b393c26acfb1d475855f6537c7f2c32d630e
             return self.form_invalid(form)
 
 
@@ -237,52 +242,60 @@ class DeleteLockerView(DeleteView):
 
 
 # TODO CHANGE THIS TO ARDUINO APP
-def cards(request):
-    cards = Card.objects.all()
-    return render(request, 'card/cards.html', {'cards': cards})
+class CardListView(View):
+    def get(self, request):
+        cards = Card.objects.all()
+        return render(request, 'card/cards.html', {'cards': cards})
 
 
-def add_card(request):
-    return render(request, 'card/add_card.html')
+class CardAddView(View):
+    def get(self, request):
+        form = CardForm()
+        return render(request, 'card/add_card.html', {'form': form})
+
+    def post(self, request):
+        form = CardForm(request.POST)
+        if form.is_valid():
+            # Como não é ModelForm, crie manualmente o objeto
+            card = Card(
+                available=form.cleaned_data['available'],
+                rfid=form.cleaned_data['rfid']
+            )
+            card.save()
+            messages.success(request, f"Cartão {card.id} - RFID: {card.rfid} criado com sucesso!")
+            return redirect('cards')
+        return render(request, 'card/add_card.html', {'form': form})
 
 
-def update_card(request, pk):
-    card = get_object_or_404(Card, id=pk)
-    if request.method == "POST":
+class CardUpdateView(View):
+    def get(self, request, pk):
+        card = get_object_or_404(Card, id=pk)
+        initial_data = {
+            'available': card.available,
+            'rfid': card.rfid,
+        }
+        form = CardForm(initial=initial_data)
+        return render(request, 'card/update_card.html', {'form': form, 'card': card})
+
+    def post(self, request, pk):
+        card = get_object_or_404(Card, id=pk)
         form = CardForm(request.POST)
         if form.is_valid():
             card.available = form.cleaned_data['available']
             card.rfid = form.cleaned_data['rfid']
             card.save()
-            messages.success(
-                request,
-                f"Cartão {card.id} - "
-                f"RFID: {card.rfid} foi atualizado com sucesso!"
-            )
+            messages.success(request, f"Cartão {card.id} - RFID: {card.rfid} foi atualizado com sucesso!")
             return redirect('cards')
-    else:
-        initial_card_data = {
-            'available': card.available,
-            'rfid': card.rfid,
-        }
-        form = CardForm(initial=initial_card_data)
-    return render(request, 'card/update_card.html', {'form': form})
+        return render(request, 'card/update_card.html', {'form': form, 'card': card})
 
 
-def delete_card(request, pk):
-    card = get_object_or_404(Card, id=pk)
-    if request.method == "POST":
+class CardDeleteView(View):
+    def post(self, request, pk):
+        card = get_object_or_404(Card, id=pk)
         card_details = f"{card.id} - RFID:{card.rfid}"
         try:
             card.delete()
-            messages.success(
-                request,
-                f"Cartão {card_details} foi excluído com sucesso!"
-            )
+            messages.success(request, f"Cartão {card_details} foi excluído com sucesso!")
         except ProtectedError:
-            messages.error(
-                request,
-                "Este cartão está sendo utilizado em um "
-                "armário e não pode ser deletado!"
-            )
+            messages.error(request, "Este cartão está sendo utilizado em um armário e não pode ser deletado!")
         return redirect('cards')

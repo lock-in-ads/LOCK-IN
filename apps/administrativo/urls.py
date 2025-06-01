@@ -9,6 +9,13 @@ from .views import (
     DeleteLockerView
 )
 
+from .views import (
+    CardListView,
+    CardUpdateView,
+    CardDeleteView,
+    CardAddView
+)
+
 
 urlpatterns = [
     path('', QuickAssignmentView.as_view(), name='quick_assignment'),
@@ -29,8 +36,8 @@ urlpatterns = [
         AssignLockerView.as_view(),
         name='assign_locker'
     ),
-    path('cards/', views.cards, name='cards'),
-    path('card/add/', views.add_card, name='add_card'),
-    path('card/update/<int:pk>/', views.update_card, name='update_card'),
-    path('card/delete/<int:pk>/', views.delete_card, name='delete_card'),
+    path('cards/', CardListView.as_view(), name='cards'),
+    path('card/add/', CardAddView.as_view(), name='add_card'),
+    path('card/update/<int:pk>/', CardUpdateView.as_view(), name='update_card'),
+    path('card/delete/<int:pk>/', CardDeleteView.as_view(), name='delete_card'),
 ]
