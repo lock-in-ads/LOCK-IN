@@ -12,7 +12,7 @@ class LockerForm(forms.Form):
     )
     number = forms.IntegerField(
         label="Número do Armário",
-        min_value=0, 
+        min_value=0,
         widget=forms.NumberInput(
             attrs={
                 'class': 'form-control',
@@ -39,7 +39,7 @@ class LockerAssignmentForm(forms.Form):
         initial=True,
         label="Disponibilidade pra uso",
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
-    )  
+    )
     number = forms.IntegerField(
         required=False,
         label="Número do Armário",
@@ -76,10 +76,10 @@ class CardForm(forms.Form):
         initial=True,
         label="Disponibilidade pra uso",
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
-    )  
+    )
     rfid = forms.IntegerField(
         label="Número RFID",
-        min_value=0, 
+        min_value=0,
         widget=forms.NumberInput(
             attrs={
                 'class': 'form-control',
