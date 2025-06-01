@@ -30,13 +30,13 @@ class Enterprise(BaseModel):
 
 
 class Locker(BaseModel):
-    enterprise_id = models.ForeignKey(
+    enterprise = models.ForeignKey(
         Enterprise,
         on_delete=models.PROTECT,
         related_name="lockers",
         verbose_name="ID da empresa"
     )
-    card_id = models.ForeignKey(
+    card = models.ForeignKey(
         Card,
         on_delete=models.PROTECT,
         related_name="lockers",
@@ -44,7 +44,7 @@ class Locker(BaseModel):
         null=True,
         blank=True
     )
-    client_id = models.ForeignKey(
+    client = models.ForeignKey(
         Client,
         on_delete=models.PROTECT,
         related_name="lockers",

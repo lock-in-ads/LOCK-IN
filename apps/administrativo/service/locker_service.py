@@ -15,13 +15,15 @@ def list_relevant():
 def detail(pk):
     locker = LockerRepository.detail(pk=pk)
     if locker.is_deleted:
-        return ValidationError("Esse armário não pode ser acessado pois foi excluído")
+        return ValidationError(
+            "Esse armário não pode ser acessado pois foi excluído"
+        )
     return locker
 
 
-def update_locker_data(data):
-    return LockerRepository.update(data)
+def update_locker_data(pk, data):
+    return LockerRepository.update(pk, data)
 
 
-def delete(data):
+def perform_delete(data):
     return LockerRepository.soft_delete(data)

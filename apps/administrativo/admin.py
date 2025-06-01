@@ -26,12 +26,12 @@ class EnterpriseAdmin(admin.ModelAdmin):
 class LockerAdmin(admin.ModelAdmin):
     list_display = (
         'number',
-        'enterprise_id',
-        'card_id',
+        'enterprise',
+        'card',
         'available',
         'created_at'
     )
-    list_filter = ('available', 'enterprise_id', 'created_at')
-    search_fields = ('number', 'enterprise_id__business_name', 'card_id__rfid')
-    raw_id_fields = ('enterprise_id', 'card_id')
+    list_filter = ('available', 'enterprise', 'created_at')
+    search_fields = ('number', 'enterprise__business_name', 'card__rfid')
+    raw_id_fields = ('enterprise', 'card')
     list_editable = ('available',)

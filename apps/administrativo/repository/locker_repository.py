@@ -19,13 +19,11 @@ class LockerRepository:
         return Locker.objects.get(id=pk)
 
     @staticmethod
-    def update(data):
-        Locker.objects.update(**data)
-        Locker.save()
-        return data
+    def update(pk, data):
+        return Locker.objects.filter(id=pk).update(**data)
 
     @staticmethod
     def soft_delete(data):
         data.is_deleted = True
-        Locker.save()
+        data.save()
         return data
