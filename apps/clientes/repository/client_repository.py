@@ -8,7 +8,7 @@ class ClientRepository:
 
     @staticmethod
     def get_by_name(name):
-        return Client.objects.filter(name=name, is_deleted=False).all()
+        return Client.objects.filter(name__icontains=name, is_deleted=False).all()
 
     @staticmethod
     def order_by_name(direction):
@@ -22,7 +22,7 @@ class ClientRepository:
 
     @staticmethod
     def get_by_number(number):
-        return Client.objects.filter(number=number, is_deleted=False).all()
+        return Client.objects.filter(phone__icontains=number, is_deleted=False).all()
 
     @staticmethod
     def order_by_number(direction):

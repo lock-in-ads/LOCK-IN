@@ -23,7 +23,8 @@
 
     {% include "partials/forms/messages.html" %}
     {% include "partials/confirm_delete_modal.html" %}
-    
+
+    {% include 'locker/filter.html' %}
     <div class="table-responsive">
       <table class="table" id="lockers">
         <thead>
@@ -95,6 +96,7 @@ $(document).ready(function() {
   // Se a tabela não for inicializada ainda, inicialize
   if (!$.fn.dataTable.isDataTable('#lockers')) {
     $('#lockers').DataTable({
+      ordering: false, 
       searching:false,
       paging: false,            // remove paginação
       lengthChange: false,      // remove seletor "mostrar X registros"

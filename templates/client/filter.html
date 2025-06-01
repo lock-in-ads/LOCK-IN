@@ -1,0 +1,17 @@
+<div class=" me-2 d-flex justify-content-end">
+    <form method="get" class="d-flex">
+        <input class="form-control me-2" type="text" name="name_search" placeholder="Pesquisar por nome..." value="{{ request.GET.name_search }}">        
+        <select class="form-control me-2" name="order_by">
+            <option value="name" {% if request.GET.order_by == "name" %}selected{% endif %}>Nome (A-Z)</option>
+            <option value="-name" {% if request.GET.order_by == "-name" %}selected{% endif %}>Nome (Z-A)</option>
+            <option value="-created_at" {% if request.GET.order_by == '-created_at' %}selected{% endif %}>Mais Recentes</option>
+            <option value="created_at" {% if request.GET.order_by == 'created_at' %}selected{% endif %}>Mais Antigos</option>
+        </select>
+        <button class="btn btn-update" type="submit">Filtrar</button>
+            {% for key, value in request.GET.items %}
+            {% if key != 'order_by' and key != 'name_search' %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+            {% endif %}
+            {% endfor %}
+    </form>
+</div>

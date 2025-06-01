@@ -56,6 +56,7 @@
     --bs-table-bg: none;
 }
 
+.table>thead,
 table.dataTable thead > tr > th.dt-orderable-asc, 
 table.dataTable thead > tr > th.dt-orderable-desc, 
 table.dataTable thead > tr > td.dt-orderable-asc, 
