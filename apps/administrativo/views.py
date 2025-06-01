@@ -22,9 +22,9 @@ from django.views.generic.edit import (
     CreateView,
     DeleteView
 )
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-
-class QuickAssignmentView(ListView):
+class QuickAssignmentView(LoginRequiredMixin, ListView):
     model = Locker
     template_name = 'locker/quick_assignment.html'
     context_object_name = 'lockers'
@@ -33,7 +33,7 @@ class QuickAssignmentView(ListView):
         return list_relevant()
 
 
-class AssignLockerView(UpdateView):
+class AssignLockerView(LoginRequiredMixin, UpdateView):
     model = Locker
     form_class = LockerAssignmentForm
     template_name = 'locker/assign_locker.html'
@@ -75,7 +75,7 @@ class AssignLockerView(UpdateView):
         return redirect('quick_assignment')
 
 
-class ListLockersView(ListView):
+class ListLockersView(LoginRequiredMixin, ListView):
     model = Locker
     template_name = 'locker/lockers.html'
     context_object_name = 'lockers'
@@ -84,7 +84,7 @@ class ListLockersView(ListView):
         return list_relevant()
 
 
-class AddLockerView(CreateView):
+class AddLockerView(LoginRequiredMixin, CreateView):
     model = Locker
     form_class = LockerForm
     template_name = 'locker/add_locker.html'
@@ -104,10 +104,10 @@ class AddLockerView(CreateView):
 
         try:
             register_locker(locker_data)
-            messages.success(self.request, "Locker added successfully!")
+            messages.success(self.request, "Armário adicionado com sucesso!")
             return redirect('lockers')
         except ValidationError as e:
-            messages.error(self.request, str(e))
+            form.add_error(None, str(e))
             return self.form_invalid(form)
 
 

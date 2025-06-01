@@ -16,6 +16,9 @@
     <div
       class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
       <h1 class="h2">Armários</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="{% url 'add_locker' %}" class="btn btn-update"><i class="bi bi-plus-lg"></i> Novo Armário</a>       
+      </div>
     </div>
 
     {% include "partials/forms/messages.html" %}
@@ -37,15 +40,22 @@
           {% for locker in lockers %}
           <tr>
             <td>{{ locker.number|stringformat:"02d" }}</td>
-            <td>{{ locker.enterprise_id }}</td>
+            <td>{{ locker.enterprise.business_name }}</td>
             <td>
-              {% if locker.client_id %}
-              {{ locker.client_id }}
+              {% if locker.client %}
+              {{ locker.client.name }}
               {% else %} 
               -----
               {% endif %}
             </td>
-            <td>{{ locker.card_id }}</td>      
+            <td>
+               {% if locker.card_id %}
+                {{ locker.card_id }}
+                {% else %} 
+                -----
+                {% endif %}
+
+            </td>      
             <td>
               {% if locker.available %}
               <div class="badge badge-success">Disponível</div>
@@ -64,7 +74,7 @@
           </tr>
           {% empty %}
           <tr>
-            <td colspan="5" class="text-center text-muted">Nenhum armário cadastrado.</td>
+            <td colspan="6" class="text-center text-muted">Nenhum armário cadastrado.</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -78,11 +88,16 @@
 {% block extra_js %}
 {% include "partials/list_extra_js.html" %}
 
+{% if lockers %}
 <script>
 $(document).ready(function() {
   // Se a tabela não for inicializada ainda, inicialize
   if (!$.fn.dataTable.isDataTable('#lockers')) {
     $('#lockers').DataTable({
+      paging: false,            // remove paginação
+      lengthChange: false,      // remove seletor "mostrar X registros"
+      info: false,              // remove texto "Mostrando X a Y de Z registros"
+      
       columnDefs: [
             { width: '10%', targets: 0 },  // Primeira coluna (Número do Armário)
             { width: '30%', targets: 1 },  // Segunda coluna (Empresa)
@@ -91,19 +106,15 @@ $(document).ready(function() {
             { width: '10%', targets: 4 },  // Quinta coluna (Disponível)
             { width: '10%', targets: 5 }   // Sexta coluna (Ações)
         ],
-        pageLength: 25,
-        lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"] ], 
       "language": {
-        "sProcessing": "Processando...",
-        "sLengthMenu": "Exibir _MENU_ registros por página",
+        "sProcessing": "Processando...",       
         "sZeroRecords": "Nenhum registro encontrado",
-        "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-        "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
-        "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
         "sSearch": "Pesquisar:"       
       }
     });
   }
 });
 </script>
+{% endif %}
+
 {% endblock %}
