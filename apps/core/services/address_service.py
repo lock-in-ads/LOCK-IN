@@ -4,3 +4,7 @@ from apps.core.repository.address_repository import AddressRepository
 
 def register_address(data):
     return AddressRepository.create(data)
+
+
+def update_address(data):
+    return AddressRepository.update(data)
