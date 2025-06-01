@@ -8,7 +8,7 @@ class LockerRepository:
 
     @staticmethod
     def list_lockers():
-        return Locker.objects.filter(is_deleted=False).all()
+        return Locker.objects.filter(is_deleted=False).all().order_by('number')
 
     @staticmethod
     def get_by_number(number):
@@ -20,7 +20,9 @@ class LockerRepository:
 
     @staticmethod
     def update(data):
-        return Locker.objects.update(**data)
+        Locker.objects.update(**data)
+        Locker.save()
+        return data
 
     @staticmethod
     def soft_delete(data):
