@@ -1,30 +1,59 @@
 {% if is_paginated %}
-<nav aria-label="Paginação">
-  <ul class="pagination justify-content-center">
+<nav class="d-flex justify-content-between" aria-label="Paginação">
+  <form method="get" class="d-flex align-items-center justify-content-end me-2 mt-2">
+  <label for="paginate_by" class="me-2 mb-0">Itens por página:</label>
+  <select name="paginate_by" id="paginate_by" class="form-select w-auto me-2" onchange="this.form.submit()">
+    <option value="10" {% if request.GET.paginate_by == '5' %}selected{% endif %}>05</option>
+    <option value="10" {% if request.GET.paginate_by == '10' %}selected{% endif %}>10</option>
+    <option value="25" {% if request.GET.paginate_by == '25' %}selected{% endif %}>25</option>
+    <option value="50" {% if request.GET.paginate_by == '50' %}selected{% endif %}>50</option>
+  </select>
+
+  {# Preserva filtros adicionais (ex: search, order_by) #}
+  {% for key, value in request.GET.items %}
+    {% if key != 'paginate_by' and key != 'page' %}
+      <input type="hidden" name="{{ key }}" value="{{ value }}">
+    {% endif %}
+  {% endfor %}
+</form>
+  <ul class="pagination justify-content-end me-2 mt-2">
     
     {% if page_obj.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">‹</a>
       </li>
     {% else %}
       <li class="page-item disabled">
-        <span class="page-link">Anterior</span>
+        <span class="page-link">‹</span>
       </li>
     {% endif %}
 
-    <li class="page-item disabled">
-      <span class="page-link">
-        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
-      </span>
-    </li>
+    {# Números das páginas #}
+    {% for num in page_obj.paginator.page_range %}
+      {% if num == page_obj.number %}
+        <li class="page-item active" aria-current="page">
+          <span class="page-link">{{ num }}</span>
+        </li>
+      {% elif num >= page_obj.number|add:"-2" and num <= page_obj.number|add:"2" %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+      {% elif num == 1 or num == page_obj.paginator.num_pages %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+      {% elif forloop.first or forloop.last %}
+        <li class="page-item disabled"><span class="page-link">…</span></li>
+      {% endif %}
+    {% endfor %}
 
     {% if page_obj.has_next %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a>
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">›</a>
       </li>
     {% else %}
       <li class="page-item disabled">
-        <span class="page-link">Próxima</span>
+        <span class="page-link">›</span>
       </li>
     {% endif %}
 

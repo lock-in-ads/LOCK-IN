@@ -81,6 +81,9 @@ class ListLockersView(LoginRequiredMixin, ListView):
     template_name = 'locker/lockers.html'
     context_object_name = 'lockers'
 
+    def get_paginate_by(self, queryset):
+        return self.request.GET.get('paginate_by', 5)
+    
     def get_queryset(self):
         return list_relevant()
 
@@ -108,11 +111,7 @@ class AddLockerView(LoginRequiredMixin, CreateView):
             messages.success(self.request, "Armário adicionado com sucesso!")
             return redirect('lockers')
         except ValidationError as e:
-<<<<<<< HEAD
-            form.add_error(self.request, str(e))
-=======
             form.add_error(None, str(e))
->>>>>>> b080b393c26acfb1d475855f6537c7f2c32d630e
             return self.form_invalid(form)
 
 
