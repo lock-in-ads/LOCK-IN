@@ -8,7 +8,7 @@ class ClientRepository:
 
     @staticmethod
     def get_by_name(name):
-        return Client.objects.filter(name=name).first()
+        return Client.objects.filter(name=name).all().order_by('name')
 
     @staticmethod
     def detail(pk):

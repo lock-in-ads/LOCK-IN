@@ -29,5 +29,9 @@ def update_client(pk, data):
     return ClientRepository.update(pk, data)
 
 
+def get_by_name():
+    return ClientRepository.get_by_name()
+
+
 def list_relevant():
     return ClientRepository.list_active()
