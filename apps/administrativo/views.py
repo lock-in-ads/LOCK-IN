@@ -108,7 +108,11 @@ class AddLockerView(LoginRequiredMixin, CreateView):
             messages.success(self.request, "Armário adicionado com sucesso!")
             return redirect('lockers')
         except ValidationError as e:
+<<<<<<< HEAD
             form.add_error(self.request, str(e))
+=======
+            form.add_error(None, str(e))
+>>>>>>> b080b393c26acfb1d475855f6537c7f2c32d630e
             return self.form_invalid(form)
 
 
