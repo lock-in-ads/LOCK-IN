@@ -1,17 +1,23 @@
 from django.views import View
 from django.views.generic import ListView
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from apps.clientes.models import Client
 from apps.clientes.forms import ClientForm
 from apps.clientes.service.client_service import (
     register_client,
+    detail,
+    get_address,
     add_address_to_client,
     delete,
-    list_clients
+    list_relevant,
+    update_client
 )
-from apps.core.services.address_service import register_address
+from apps.core.services.address_service import (
+    register_address,
+    update_address
+)
 
 
 class ClientListView(ListView):
@@ -20,7 +26,7 @@ class ClientListView(ListView):
     context_object_name = 'clients'
 
     def get_queryset(self):
-        return list_clients()
+        return list_relevant()
 
 
 class ClientCreateView(View):
@@ -63,8 +69,8 @@ class ClientUpdateView(View):
     template_name = 'client/update_client.html'
 
     def get(self, request, pk):
-        client = get_object_or_404(Client, id=pk)
-        address = client.address.first()
+        client = detail(pk)
+        address = get_address(pk)
         initial_data = {
             'name': client.name,
             'phone': client.phone,
@@ -82,25 +88,29 @@ class ClientUpdateView(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request, pk):
-        client = get_object_or_404(Client, id=pk)
-        address = client.address.first()
+        client = detail(pk)
+        address = get_address(pk)
         form = ClientForm(request.POST)
         if form.is_valid():
-            client.name = form.cleaned_data['name']
-            client.phone = form.cleaned_data['phone']
-            client.email = form.cleaned_data['email']
-            client.access_level = form.cleaned_data['access_level']
+            client_data = {
+                'name':  form.cleaned_data['name'],
+                'phone': form.cleaned_data['phone'],
+                'email': form.cleaned_data['email'],
+                'access_level': form.cleaned_data['access_level']
+            }
 
-            address.cep = form.cleaned_data['cep']
-            address.street = form.cleaned_data['street']
-            address.number = form.cleaned_data['number']
-            address.city = form.cleaned_data['city']
-            address.uf = form.cleaned_data['uf']
-            address.address_2 = form.cleaned_data['address_2']
-            address.reference_point = form.cleaned_data['reference_point']
+            address_data = {
+                'cep': form.cleaned_data['cep'],
+                'street': form.cleaned_data['street'],
+                'number': form.cleaned_data['number'],
+                'city': form.cleaned_data['city'],
+                'uf': form.cleaned_data['uf'],
+                'address_2': form.cleaned_data['address_2'],
+                'reference_point': form.cleaned_data['reference_point']
+            }
 
-            client.save()
-            address.save()
+            update_client(pk=pk, data=client_data)
+            update_address(pk=address.id, data=address_data)
 
             messages.success(
                 request, f"Usuário {client.name} foi atualizado com sucesso!"
@@ -113,11 +123,11 @@ class ClientDeleteView(View):
     template_name = 'client/confirm_delete.html'
 
     def get(self, request, pk):
-        client = get_object_or_404(Client, id=pk)
+        client = detail(pk=pk)
         return render(request, self.template_name, {'client': client})
 
     def post(self, request, pk):
-        client = get_object_or_404(Client, id=pk)
+        client = detail(pk)
         name = client.name
         delete(client)
         messages.success(request, f"Usuário {name} foi excluído com sucesso!")
