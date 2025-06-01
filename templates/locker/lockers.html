@@ -17,7 +17,7 @@
       class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
       <h1 class="h2">Armários</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
-        <a href="{% url 'add_locker' %}" class="btn btn-update"><i class="bi bi-plus-lg"></i> Novo Armário</a>       
+        <a href="{% url 'add_locker' %}" class="btn custom"><i class="bi bi-plus-lg"></i> Novo Armário</a>       
       </div>
     </div>
 
@@ -79,7 +79,8 @@
           {% endfor %}
         </tbody>
       </table>
-    </div> 
+      {% include 'partials/pagination.html' %} 
+    </div>  
   </div>
 </main>
 <!--end::Locker List-->
@@ -94,6 +95,7 @@ $(document).ready(function() {
   // Se a tabela não for inicializada ainda, inicialize
   if (!$.fn.dataTable.isDataTable('#lockers')) {
     $('#lockers').DataTable({
+      searching:false,
       paging: false,            // remove paginação
       lengthChange: false,      // remove seletor "mostrar X registros"
       info: false,              // remove texto "Mostrando X a Y de Z registros"

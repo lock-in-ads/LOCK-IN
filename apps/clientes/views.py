@@ -29,6 +29,9 @@ class ClientListView(LoginRequiredMixin, ListView):
     model = Client
     template_name = 'client/clients.html'
     context_object_name = 'clients'
+    
+    def get_paginate_by(self, queryset):
+        return self.request.GET.get('paginate_by', 5)  
 
     def get_queryset(self):
         return list_relevant()
