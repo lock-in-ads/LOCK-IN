@@ -16,11 +16,17 @@
     <div
       class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 mb-lg-5 border-bottom">
       <h1 class="h2">Usuários</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="{% url 'add_client' %}" class="btn custom"><i class="bi bi-plus-lg"></i> Novo Usuário</a>       
+      </div>
     </div>
 
     {% include "partials/forms/messages.html" %}
     {% include "partials/confirm_delete_modal.html" %}
-    
+
+
+    {% include 'partials/client/filter.html' %}
+
     <div class="table-responsive">
       <table class="table" id="clients">
         <thead>
@@ -55,7 +61,8 @@
           {% endfor %}
         </tbody>
       </table>
-    </div>    
+    </div>  
+    {% include 'partials/pagination.html' %}    
   </div>
 </main>
 <!--end::Client List-->
@@ -64,11 +71,17 @@
 {% block extra_js %}
 {% include "partials/list_extra_js.html" %}
 
+{% if clients %}
 <script>
 $(document).ready(function() {
   // Se a tabela não for inicializada ainda, inicialize
   if (!$.fn.dataTable.isDataTable('#clients')) {
     $('#clients').DataTable({
+      searching:false,
+      paging: false,            // remove paginação
+      lengthChange: false,      // remove seletor "mostrar X registros"
+      info: false,              // remove texto "Mostrando X a Y de Z registros"
+      
       columnDefs: [
             { width: '10%', targets: 0 },  // Primeira coluna (Id)
             { width: '30%', targets: 1 },  // Segunda coluna (Nome)
@@ -76,19 +89,15 @@ $(document).ready(function() {
             { width: '25%', targets: 3 },  // Quinta coluna (E-mail)
             { width: '10%', targets: 4 }   // Sexta coluna (Ações)
         ],
-        pageLength: 25,
-        lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"] ], 
       "language": {
-        "sProcessing": "Processando...",
-        "sLengthMenu": "Exibir _MENU_ registros por página",
+        "sProcessing": "Processando...",       
         "sZeroRecords": "Nenhum registro encontrado",
-        "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-        "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
-        "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
         "sSearch": "Pesquisar:"       
       }
     });
   }
 });
 </script>
+{% endif %}
+
 {% endblock %}

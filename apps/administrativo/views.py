@@ -1,3 +1,4 @@
+from django.views import View
 from django.shortcuts import get_object_or_404, render, redirect
 from apps.administrativo.models import Locker, Card
 from django.core.exceptions import ValidationError
@@ -22,9 +23,9 @@ from django.views.generic.edit import (
     CreateView,
     DeleteView
 )
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-
-class QuickAssignmentView(ListView):
+class QuickAssignmentView(LoginRequiredMixin, ListView):
     model = Locker
     template_name = 'locker/quick_assignment.html'
     context_object_name = 'lockers'
@@ -33,7 +34,7 @@ class QuickAssignmentView(ListView):
         return list_relevant()
 
 
-class AssignLockerView(UpdateView):
+class AssignLockerView(LoginRequiredMixin, UpdateView):
     model = Locker
     form_class = LockerAssignmentForm
     template_name = 'locker/assign_locker.html'
@@ -75,7 +76,7 @@ class AssignLockerView(UpdateView):
         return redirect('quick_assignment')
 
 
-class ListLockersView(ListView):
+class ListLockersView(LoginRequiredMixin, ListView):
     model = Locker
     template_name = 'locker/lockers.html'
     context_object_name = 'lockers'
@@ -84,7 +85,7 @@ class ListLockersView(ListView):
         return list_relevant()
 
 
-class AddLockerView(CreateView):
+class AddLockerView(LoginRequiredMixin, CreateView):
     model = Locker
     form_class = LockerForm
     template_name = 'locker/add_locker.html'
@@ -104,14 +105,14 @@ class AddLockerView(CreateView):
 
         try:
             register_locker(locker_data)
-            messages.success(self.request, "Locker added successfully!")
+            messages.success(self.request, "Armário adicionado com sucesso!")
             return redirect('lockers')
         except ValidationError as e:
-            messages.error(self.request, str(e))
+            form.add_error(self.request, str(e))
             return self.form_invalid(form)
 
 
-class UpdateLockerView(UpdateView):
+class UpdateLockerView(LoginRequiredMixin, UpdateView):
     model = Locker
     form_class = LockerForm
     template_name = 'locker/update_locker.html'
@@ -166,7 +167,7 @@ class UpdateLockerView(UpdateView):
             return self.form_invalid(form)
 
 
-class DeleteLockerView(DeleteView):
+class DeleteLockerView(LoginRequiredMixin, DeleteView):
     model = Locker
     pk_url_kwarg = 'pk'
     context_object_name = 'locker'
@@ -206,52 +207,60 @@ class DeleteLockerView(DeleteView):
 
 
 # TODO CHANGE THIS TO ARDUINO APP
-def cards(request):
-    cards = Card.objects.all()
-    return render(request, 'card/cards.html', {'cards': cards})
+class CardListView(View):
+    def get(self, request):
+        cards = Card.objects.all()
+        return render(request, 'card/cards.html', {'cards': cards})
 
 
-def add_card(request):
-    return render(request, 'card/add_card.html')
+class CardAddView(View):
+    def get(self, request):
+        form = CardForm()
+        return render(request, 'card/add_card.html', {'form': form})
+
+    def post(self, request):
+        form = CardForm(request.POST)
+        if form.is_valid():
+            # Como não é ModelForm, crie manualmente o objeto
+            card = Card(
+                available=form.cleaned_data['available'],
+                rfid=form.cleaned_data['rfid']
+            )
+            card.save()
+            messages.success(request, f"Cartão {card.id} - RFID: {card.rfid} criado com sucesso!")
+            return redirect('cards')
+        return render(request, 'card/add_card.html', {'form': form})
 
 
-def update_card(request, pk):
-    card = get_object_or_404(Card, id=pk)
-    if request.method == "POST":
+class CardUpdateView(View):
+    def get(self, request, pk):
+        card = get_object_or_404(Card, id=pk)
+        initial_data = {
+            'available': card.available,
+            'rfid': card.rfid,
+        }
+        form = CardForm(initial=initial_data)
+        return render(request, 'card/update_card.html', {'form': form, 'card': card})
+
+    def post(self, request, pk):
+        card = get_object_or_404(Card, id=pk)
         form = CardForm(request.POST)
         if form.is_valid():
             card.available = form.cleaned_data['available']
             card.rfid = form.cleaned_data['rfid']
             card.save()
-            messages.success(
-                request,
-                f"Cartão {card.id} - "
-                f"RFID: {card.rfid} foi atualizado com sucesso!"
-            )
+            messages.success(request, f"Cartão {card.id} - RFID: {card.rfid} foi atualizado com sucesso!")
             return redirect('cards')
-    else:
-        initial_card_data = {
-            'available': card.available,
-            'rfid': card.rfid,
-        }
-        form = CardForm(initial=initial_card_data)
-    return render(request, 'card/update_card.html', {'form': form})
+        return render(request, 'card/update_card.html', {'form': form, 'card': card})
 
 
-def delete_card(request, pk):
-    card = get_object_or_404(Card, id=pk)
-    if request.method == "POST":
+class CardDeleteView(View):
+    def post(self, request, pk):
+        card = get_object_or_404(Card, id=pk)
         card_details = f"{card.id} - RFID:{card.rfid}"
         try:
             card.delete()
-            messages.success(
-                request,
-                f"Cartão {card_details} foi excluído com sucesso!"
-            )
+            messages.success(request, f"Cartão {card_details} foi excluído com sucesso!")
         except ProtectedError:
-            messages.error(
-                request,
-                "Este cartão está sendo utilizado em um "
-                "armário e não pode ser deletado!"
-            )
+            messages.error(request, "Este cartão está sendo utilizado em um armário e não pode ser deletado!")
         return redirect('cards')
