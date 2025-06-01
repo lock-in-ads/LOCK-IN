@@ -112,24 +112,25 @@ class AddLockerView(CreateView):
 
 
 class UpdateLockerView(UpdateView):
-    model = Locker
-    form_class = LockerForm
     template_name = 'locker/update_locker.html'
-    pk_url_kwarg = 'pk'
-    context_object_name = 'locker'
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs.pop('instance', None)
-        return kwargs
+    def get_queryset(self):
+        return list_relevant()
 
-    def get_object(self, queryset=None):
-        pk = self.kwargs.get('pk')
+    def get(self, request, pk):
         if not pk:
             messages.error(self.request, "Esse item não existe.")
 
         try:
-            return detail(pk)
+            locker = detail(pk=pk)
+            initial_data = {
+                'available': locker.available,
+                'number': locker.number,
+                'card': locker.card,
+                'enterprise': locker.enterprise
+            }
+            form = LockerForm(initial=initial_data)
+            return render(request, self.template_name, {'form': form})
         except ValidationError as e:
             messages.error(self.request, str(e))
             return None
@@ -137,8 +138,7 @@ class UpdateLockerView(UpdateView):
             messages.error(self.request, f"Erro ao carregar armário: {str(e)}")
             return None
 
-    def form_valid(self, form):
-        pk = self.kwargs.get('pk')
+    def post(self, request, pk):
         if not pk:
             messages.error(self.request, "Esse item não existe.")
 
@@ -146,16 +146,17 @@ class UpdateLockerView(UpdateView):
         if not locker:
             return redirect('lockers')
 
-        locker_data = {
-            'available': form.cleaned_data['available'],
-            'number': form.cleaned_data['number'],
-            'card': form.cleaned_data['card'],
-            'enterprise': form.cleaned_data['enterprise']
-        }
+        form = LockerForm(request.POST)
+        if form.is_valid():
+            locker_data = {
+                'available': form.cleaned_data['available'],
+                'number': form.cleaned_data['number'],
+                'card': form.cleaned_data['card'],
+                'enterprise': form.cleaned_data['enterprise']
+            }
 
         try:
-            update_locker_data(data=locker_data)
-            locker.save()
+            update_locker_data(pk=pk, data=locker_data)
             messages.success(
                 self.request,
                 f"Armário {locker_data['number']} foi atualizado com sucesso!"
@@ -164,6 +165,36 @@ class UpdateLockerView(UpdateView):
         except ValidationError as e:
             messages.error(self.request, str(e))
             return self.form_invalid(form)
+
+
+
+    # def form_valid(self, form):
+    #     pk = self.kwargs.get('pk')
+    #     if not pk:
+    #         messages.error(self.request, "Esse item não existe.")
+
+    #     locker = detail(pk=pk)
+    #     if not locker:
+    #         return redirect('lockers')
+
+    #     locker_data = {
+    #         'available': form.cleaned_data['available'],
+    #         'number': form.cleaned_data['number'],
+    #         'card': form.cleaned_data['card'],
+    #         'enterprise': form.cleaned_data['enterprise']
+    #     }
+
+    #     try:
+    #         update_locker_data(data=locker_data)
+    #         locker.save()
+    #         messages.success(
+    #             self.request,
+    #             f"Armário {locker_data['number']} foi atualizado com sucesso!"
+    #         )
+    #         return redirect('lockers')
+    #     except ValidationError as e:
+    #         messages.error(self.request, str(e))
+    #         return self.form_invalid(form)
 
 
 class DeleteLockerView(DeleteView):
