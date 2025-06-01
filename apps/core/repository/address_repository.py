@@ -7,8 +7,8 @@ class AddressRepository:
         return Address.objects.create(**data)
 
     @staticmethod
-    def update(data):
-        return Address.objects.update(**data)
+    def update(pk, data):
+        return Address.objects.filter(id=pk).update(**data)
 
     @staticmethod
     def get_by_street(street):

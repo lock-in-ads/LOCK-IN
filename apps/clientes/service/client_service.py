@@ -12,9 +12,22 @@ def add_address_to_client(client, address):
     return ClientRepository.link_address(client, address)
 
 
+def detail(pk):
+    return ClientRepository.detail(pk)
+
+
+def get_address(pk):
+    return ClientRepository.get_address(pk)
+
+
 def delete(data):
     return ClientRepository.soft_delete(data)
 
 
-def list_clients():
+def update_client(pk, data):
+    print(data['name'])
+    return ClientRepository.update(pk, data)
+
+
+def list_relevant():
     return ClientRepository.list_active()
