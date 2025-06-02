@@ -24,6 +24,7 @@
     {% include "partials/forms/messages.html" %}
     {% include "partials/confirm_delete_modal.html" %}
 
+    {% include 'card/filter.html' %}
     <div class="table-responsive">
       <table class="table" id="cards">
         <thead>
@@ -38,8 +39,14 @@
         <tbody>
           {% for card in cards %}
           <tr>
-            <td>{{ card.id }}</td>
-            <td>{{ card.enterprise_id }}</td> 
+            <td>{{ card.id }}</td>            
+            <td>
+              {% if card.enterprise_id %}
+              {{ card.enterprise_id }}
+              {% else %} 
+              -----
+              {% endif %}
+            </td>
             <td>{{ card.rfid }}</td>      
             <td>
               {% if card.available %}
