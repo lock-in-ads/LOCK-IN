@@ -1,6 +1,6 @@
 from django import forms
 from apps.administrativo.models import Enterprise, Card
-from apps.clientes.models import Client
+from apps.clientes.service.client_service import list_relevant
 
 
 class LockerForm(forms.Form):
@@ -65,7 +65,7 @@ class LockerAssignmentForm(forms.Form):
     )
     client = forms.ModelChoiceField(
         required=False,
-        queryset=Client.objects.all(),
+        queryset=list_relevant(),
         label="Atribuir Usuário:",
         widget=forms.Select(attrs={'class': 'form-select'})
     )

@@ -1,5 +1,4 @@
 from django.urls import path
-import apps.administrativo.views as views
 from .views import (
     QuickAssignmentView,
     AssignLockerView,
@@ -8,14 +7,12 @@ from .views import (
     UpdateLockerView,
     DeleteLockerView
 )
-
 from .views import (
     CardListView,
     CardUpdateView,
     CardDeleteView,
     CardAddView
 )
-
 
 urlpatterns = [
     path('', QuickAssignmentView.as_view(), name='quick_assignment'),
@@ -38,6 +35,14 @@ urlpatterns = [
     ),
     path('cards/', CardListView.as_view(), name='cards'),
     path('card/add/', CardAddView.as_view(), name='add_card'),
-    path('card/update/<int:pk>/', CardUpdateView.as_view(), name='update_card'),
-    path('card/delete/<int:pk>/', CardDeleteView.as_view(), name='delete_card'),
+    path(
+        'card/update/<int:pk>/',
+        CardUpdateView.as_view(),
+        name='update_card'
+    ),
+    path(
+        'card/delete/<int:pk>/',
+        CardDeleteView.as_view(),
+        name='delete_card'
+    ),
 ]

@@ -13,10 +13,6 @@ from apps.clientes.service.client_service import (
     delete,
     list_relevant,
     update_client,
-    get_by_name,
-    order_by_name,
-    get_by_number,
-    order_by_number
 )
 from apps.core.services.address_service import (
     register_address,
@@ -29,10 +25,10 @@ class ClientListView(LoginRequiredMixin, ListView):
     model = Client
     template_name = 'client/clients.html'
     context_object_name = 'clients'
-    
+
     def get_paginate_by(self, queryset):
-        return self.request.GET.get('paginate_by', 5)  
-    
+        return self.request.GET.get('paginate_by', 5)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         get_copy = self.request.GET.copy()
@@ -48,10 +44,10 @@ class ClientListView(LoginRequiredMixin, ListView):
 
         if name_search:
             queryset = queryset.filter(name__icontains=name_search)
-        
+
         if order_by:
-            queryset = queryset.order_by(order_by)        
-        
+            queryset = queryset.order_by(order_by)
+
         return queryset
 
 

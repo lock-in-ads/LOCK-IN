@@ -26,6 +26,7 @@ from django.views.generic.edit import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
+
 class QuickAssignmentView(LoginRequiredMixin, ListView):
     model = Locker
     template_name = 'locker/quick_assignment.html'
@@ -84,7 +85,7 @@ class ListLockersView(LoginRequiredMixin, ListView):
 
     def get_paginate_by(self, queryset):
         return self.request.GET.get('paginate_by', 5)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         get_copy = self.request.GET.copy()
@@ -92,7 +93,7 @@ class ListLockersView(LoginRequiredMixin, ListView):
             get_copy.pop('page')
         context['get_copy'] = get_copy
         return context
-    
+
     def get_queryset(self):
         queryset = list_relevant()
         name_search = self.request.GET.get('name_search')
@@ -100,10 +101,10 @@ class ListLockersView(LoginRequiredMixin, ListView):
 
         if name_search:
             queryset = queryset.filter(Q(client__name__icontains=name_search))
-        
+
         if order_by:
-            queryset = queryset.order_by(order_by)        
-        
+            queryset = queryset.order_by(order_by)
+
         return queryset
 
 
@@ -189,6 +190,7 @@ class UpdateLockerView(LoginRequiredMixin, UpdateView):
             messages.error(self.request, str(e))
             return self.form_invalid(form)
 
+
 class DeleteLockerView(LoginRequiredMixin, DeleteView):
     model = Locker
     pk_url_kwarg = 'pk'
@@ -236,7 +238,7 @@ class CardListView(LoginRequiredMixin, ListView):
 
     def get_paginate_by(self, queryset):
         return self.request.GET.get('paginate_by', 5)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         get_copy = self.request.GET.copy()
@@ -244,15 +246,16 @@ class CardListView(LoginRequiredMixin, ListView):
             get_copy.pop('page')
         context['get_copy'] = get_copy
         return context
-    
+
     def get_queryset(self):
         queryset = Card.objects.all()
         order_by = self.request.GET.get('order_by')
-        
+
         if order_by:
-            queryset = queryset.order_by(order_by)        
-        
+            queryset = queryset.order_by(order_by)
+
         return queryset
+
 
 class CardAddView(LoginRequiredMixin, View):
     def get(self, request):
@@ -268,9 +271,13 @@ class CardAddView(LoginRequiredMixin, View):
                 rfid=form.cleaned_data['rfid']
             )
             card.save()
-            messages.success(request, f"Cartão {card.id} - RFID: {card.rfid} criado com sucesso!")
+            messages.success(
+                request,
+                f"Cartão {card.id} - RFID: {card.rfid} criado com sucesso!"
+            )
             return redirect('cards')
         return render(request, 'card/add_card.html', {'form': form})
+
 
 class CardUpdateView(LoginRequiredMixin, View):
     def get(self, request, pk):
@@ -280,7 +287,9 @@ class CardUpdateView(LoginRequiredMixin, View):
             'rfid': card.rfid,
         }
         form = CardForm(initial=initial_data)
-        return render(request, 'card/update_card.html', {'form': form, 'card': card})
+        return render(
+            request, 'card/update_card.html', {'form': form, 'card': card}
+        )
 
     def post(self, request, pk):
         card = get_object_or_404(Card, id=pk)
@@ -289,9 +298,17 @@ class CardUpdateView(LoginRequiredMixin, View):
             card.available = form.cleaned_data['available']
             card.rfid = form.cleaned_data['rfid']
             card.save()
-            messages.success(request, f"Cartão {card.id} - RFID: {card.rfid} foi atualizado com sucesso!")
+            messages.success(
+                request,
+                f"Cartão {card.id}"
+                f" - RFID: {card.rfid} foi atualizado com sucesso!"
+            )
             return redirect('cards')
-        return render(request, 'card/update_card.html', {'form': form, 'card': card})
+        return render(
+            request,
+            'card/update_card.html',
+            {'form': form, 'card': card}
+        )
 
 
 class CardDeleteView(LoginRequiredMixin, View):
@@ -300,7 +317,13 @@ class CardDeleteView(LoginRequiredMixin, View):
         card_details = f"{card.id} - RFID:{card.rfid}"
         try:
             card.delete()
-            messages.success(request, f"Cartão {card_details} foi excluído com sucesso!")
+            messages.success(
+                request, f"Cartão {card_details} foi excluído com sucesso!"
+            )
         except ProtectedError:
-            messages.error(request, "Este cartão está sendo utilizado em um armário e não pode ser deletado!")
+            messages.error(
+                request,
+                "Este cartão está sendo utilizado em um armário "
+                "e não pode ser deletado!"
+            )
         return redirect('cards')

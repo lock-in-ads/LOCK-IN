@@ -4,7 +4,7 @@ from apps.core.models import BaseModel, Address
 
 class Client(BaseModel):
     class LevelChoices(models.IntegerChoices):
-        SUPER_USER = 0, 'Super Usuário'
+        # SUPER_USER = 0, 'Super Usuário'
         MANAGER = 1, 'Gerente'
         SIMPLE_USER = 2, 'Cliente'
 
