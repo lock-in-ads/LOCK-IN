@@ -1,9 +1,11 @@
 <div class=" me-2 d-flex justify-content-end">
     <form method="get" class="d-flex">
-        <input class="form-control me-2" type="text" name="name_search" placeholder="Pesquisar por nome..." value="{{ request.GET.name_search }}">        
+        <input class="form-control me-2" type="text" name="name_search" placeholder="Nome do Usuário..." value="{{ request.GET.name_search }}">        
         <select class="form-control me-2" name="order_by">
-            <option value="client__name" {% if request.GET.order_by == "client__name" %}selected{% endif %}>Nome (A-Z)</option>
-            <option value="-client__name" {% if request.GET.order_by == "-client__name" %}selected{% endif %}>Nome (Z-A)</option>
+            <option value="client__name" {% if request.GET.order_by == "client__name" %}selected{% endif %}>Nome do Usuário (A-Z)</option>
+            <option value="-client__name" {% if request.GET.order_by == "-client__name" %}selected{% endif %}>Nome do Usuário (Z-A)</option>
+            <option value="-available" {% if request.GET.order_by == '-available' %}selected{% endif %}>Disponíveis Primeiro</option>
+            <option value="available" {% if request.GET.order_by == 'available' %}selected{% endif %}>Indisponíveis Primeiro</option>
             <option value="-created_at" {% if request.GET.order_by == '-created_at' %}selected{% endif %}>Mais Recentes</option>
             <option value="created_at" {% if request.GET.order_by == 'created_at' %}selected{% endif %}>Mais Antigos</option>
         </select>

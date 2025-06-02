@@ -1,0 +1,16 @@
+<div class=" me-2 d-flex justify-content-end">
+    <form method="get" class="d-flex">              
+        <select class="form-control me-2" name="order_by">  
+            <option value="-available" {% if request.GET.order_by == '-available' %}selected{% endif %}>Disponíveis Primeiro</option>
+            <option value="available" {% if request.GET.order_by == 'available' %}selected{% endif %}>Indisponíveis Primeiro</option>       
+            <option value="-created_at" {% if request.GET.order_by == '-created_at' %}selected{% endif %}>Mais Recentes</option>
+            <option value="created_at" {% if request.GET.order_by == 'created_at' %}selected{% endif %}>Mais Antigos</option>
+        </select>
+        <button class="btn btn-update" type="submit">Filtrar</button>
+            {% for key, value in request.GET.items %}
+            {% if key != 'order_by' %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+            {% endif %}
+            {% endfor %}
+    </form>
+</div>

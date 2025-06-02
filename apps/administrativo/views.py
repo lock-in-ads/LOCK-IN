@@ -229,10 +229,30 @@ class DeleteLockerView(LoginRequiredMixin, DeleteView):
 
 
 # TODO CHANGE THIS TO ARDUINO APP
-class CardListView(LoginRequiredMixin, View):
-    def get(self, request):
-        cards = Card.objects.all()
-        return render(request, 'card/cards.html', {'cards': cards})
+class CardListView(LoginRequiredMixin, ListView):
+    model = Card
+    template_name = 'card/cards.html'
+    context_object_name = 'cards'
+
+    def get_paginate_by(self, queryset):
+        return self.request.GET.get('paginate_by', 5)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        get_copy = self.request.GET.copy()
+        if get_copy.get('page'):
+            get_copy.pop('page')
+        context['get_copy'] = get_copy
+        return context
+    
+    def get_queryset(self):
+        queryset = Card.objects.all()
+        order_by = self.request.GET.get('order_by')
+        
+        if order_by:
+            queryset = queryset.order_by(order_by)        
+        
+        return queryset
 
 class CardAddView(LoginRequiredMixin, View):
     def get(self, request):
