@@ -64,6 +64,7 @@ class LockerAssignmentForm(forms.Form):
         )
     )
     client = forms.ModelChoiceField(
+        required=False,
         queryset=Client.objects.all(),
         label="Atribuir Usuário:",
         widget=forms.Select(attrs={'class': 'form-select'})
